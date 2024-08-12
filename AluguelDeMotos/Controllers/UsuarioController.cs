@@ -1,9 +1,11 @@
-﻿using AluguelDeMotos.Models.Usuarios;
+﻿using AluguelDeMotos.Filters;
+using AluguelDeMotos.Models.Usuarios;
 using AluguelDeMotos.Repositorio;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AluguelDeMotos.Controllers
 {
+    [SomenteAdmin]
     public class UsuarioController : Controller
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;

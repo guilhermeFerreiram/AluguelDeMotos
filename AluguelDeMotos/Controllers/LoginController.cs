@@ -34,7 +34,7 @@ namespace AluguelDeMotos.Controllers
                         if (usuario.SenhaValida(login.Senha))
                         {
                             _sessao.CriarSessaoUsuario(usuario);
-                            return RedirectToAction("Index", "Usuario");
+                            return RedirectToAction("Index", "Home");
                         }
 
                         TempData["MensagemErro"] = "Senha inválida. Tente novamente.";

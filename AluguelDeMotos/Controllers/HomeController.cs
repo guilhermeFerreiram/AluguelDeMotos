@@ -1,9 +1,11 @@
+using AluguelDeMotos.Filters;
 using AluguelDeMotos.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace AluguelDeMotos.Controllers
 {
+    [SomenteUsuarioLogado]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
