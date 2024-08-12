@@ -1,4 +1,5 @@
 using AluguelDeMotos.Data;
+using AluguelDeMotos.Helper;
 using AluguelDeMotos.Repositorio;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,7 +11,16 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddEntityFrameworkNpgsql()
     .AddDbContext<BancoContext>(o => o.UseNpgsql(builder.Configuration.GetConnectionString("DataBase")));
 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+builder.Services.AddScoped<ISessao, Sessao>();
+
+builder.Services.AddSession(o =>
+{
+    o.Cookie.HttpOnly = true;
+    o.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -30,6 +40,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

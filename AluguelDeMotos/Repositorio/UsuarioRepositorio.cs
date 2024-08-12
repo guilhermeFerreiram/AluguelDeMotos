@@ -53,6 +53,11 @@ namespace AluguelDeMotos.Repositorio
             return _context.Usuarios.FirstOrDefault(x => x.Id == id);
         }
 
+        public UsuarioModel BuscarPorEmail(string email)
+        {
+            return _context.Usuarios.FirstOrDefault(x => x.Email == email);
+        }
+
         public List<UsuarioModel> BuscarTodos()
         {
             return _context.Usuarios.ToList();

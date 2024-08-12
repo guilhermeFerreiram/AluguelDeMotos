@@ -1,5 +1,6 @@
 ﻿using AluguelDeMotos.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace AluguelDeMotos.Models.Usuarios
 {
@@ -16,5 +17,10 @@ namespace AluguelDeMotos.Models.Usuarios
         public string Senha { get; set; }
         public DateTime DataCadastro { get; set; }
         public DateTime? DataAtualizacao { get; set; }
+
+        public bool SenhaValida(string senha)
+        {
+            return Senha == senha;
+        }
     }
 }
