@@ -90,5 +90,19 @@ namespace AluguelDeMotos.Controllers
                 throw;
             }
         }
+
+        public IActionResult ApagarConfirmacao(int id)
+        {
+            try
+            {
+                var usuario = _usuarioRepositorio.BuscarPorId(id);
+                return View(usuario);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
