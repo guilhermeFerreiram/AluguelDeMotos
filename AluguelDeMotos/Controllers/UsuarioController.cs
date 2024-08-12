@@ -21,7 +21,6 @@ namespace AluguelDeMotos.Controllers
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -50,9 +49,46 @@ namespace AluguelDeMotos.Controllers
             }
         }
 
-        public IActionResult Editar()
+        public IActionResult Editar(int id)
         {
-            return View();
+            try
+            {
+                var usuario = _usuarioRepositorio.BuscarPorId(id);
+                return View(usuario);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public IActionResult Alterar(UsuarioSemSenhaModel usuarioSemSenha)
+        {
+            try
+            {
+                UsuarioModel usuario = null;
+
+                if (ModelState.IsValid)
+                {
+                    usuario = new UsuarioModel()
+                    {
+                        Id = usuarioSemSenha.Id,
+                        Nome = usuarioSemSenha.Nome,
+                        Email = usuarioSemSenha.Email,
+                        Perfil = usuarioSemSenha.Perfil
+                    };
+
+                    _usuarioRepositorio.Atualizar(usuario);
+                    return RedirectToAction("Index");
+                }
+
+                return View("Editar", usuario);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

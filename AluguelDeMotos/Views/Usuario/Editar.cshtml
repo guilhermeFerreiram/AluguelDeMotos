@@ -12,6 +12,8 @@
 
 <form asp-controller="Usuario" asp-action="Alterar" method="post">
 
+    <input type="hidden" asp-for="Id">
+
     <div class="mb-3">
         <label for="nome" class="form-label">Nome</label>
         <input type="text" class="form-control" id="nome" asp-for="Nome" placeholder="Digite o nome do usuário...">
