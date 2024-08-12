@@ -12,5 +12,13 @@ namespace AluguelDeMotos.Data
 
         public DbSet<UsuarioModel> Usuarios { get; set; }
         public DbSet<MotoModel> Motos { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<MotoModel>()
+                .HasIndex(m => m.Placa)
+                .IsUnique();
+        }
+
     }
 }

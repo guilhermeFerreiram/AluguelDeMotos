@@ -3,6 +3,8 @@ using AluguelDeMotos.Models;
 using AluguelDeMotos.Models.Usuarios;
 using AluguelDeMotos.Repositorio;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace AluguelDeMotos.Controllers
 {
@@ -48,8 +50,20 @@ namespace AluguelDeMotos.Controllers
 
                 return View(moto);
             }
+            catch (DbUpdateException e)
+            {
+                TempData["MensagemErro"] = e.Message;
+
+                if (e.InnerException != null)
+                {
+                    TempData["MensagemErro"] = e.InnerException.Message;
+                }
+
+                return RedirectToAction("Index");
+            }
             catch (Exception e)
             {
+
                 TempData["MensagemErro"] = e.Message;
                 return RedirectToAction("Index");
             }
@@ -81,6 +95,17 @@ namespace AluguelDeMotos.Controllers
                 }
 
                 return View("Editar", moto);
+            }
+            catch (DbUpdateException e)
+            {
+                TempData["MensagemErro"] = e.Message;
+
+                if (e.InnerException != null)
+                {
+                    TempData["MensagemErro"] = e.InnerException.Message;
+                }
+
+                return RedirectToAction("Index");
             }
             catch (Exception e)
             {
