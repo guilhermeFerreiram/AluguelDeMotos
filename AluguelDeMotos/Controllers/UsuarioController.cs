@@ -38,6 +38,7 @@ namespace AluguelDeMotos.Controllers
                 if (ModelState.IsValid)
                 {
                     _usuarioRepositorio.Adicionar(usuario);
+                    TempData["MensagemSucesso"] = "Usuário criado com sucesso!";
                     return RedirectToAction("Index");
                 }
 
@@ -45,7 +46,8 @@ namespace AluguelDeMotos.Controllers
             }
             catch (Exception e)
             {
-                throw;
+                TempData["MensagemErro"] = e.Message;
+                return RedirectToAction("Index");
             }
         }
 
@@ -56,9 +58,10 @@ namespace AluguelDeMotos.Controllers
                 var usuario = _usuarioRepositorio.BuscarPorId(id);
                 return View(usuario);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                TempData["MensagemErro"] = e.Message;
+                return RedirectToAction("Index");
             }
         }
 
@@ -79,15 +82,16 @@ namespace AluguelDeMotos.Controllers
                     };
 
                     _usuarioRepositorio.Atualizar(usuario);
+                    TempData["MensagemSucesso"] = "Usuário editado com sucesso!";
                     return RedirectToAction("Index");
                 }
 
                 return View("Editar", usuario);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                TempData["MensagemErro"] = e.Message;
+                return RedirectToAction("Index");
             }
         }
 
@@ -98,10 +102,10 @@ namespace AluguelDeMotos.Controllers
                 var usuario = _usuarioRepositorio.BuscarPorId(id);
                 return View(usuario);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                TempData["MensagemErro"] = e.Message;
+                return RedirectToAction("Index");
             }
         }
 
@@ -110,12 +114,13 @@ namespace AluguelDeMotos.Controllers
             try
             {
                 _usuarioRepositorio.Apagar(id);
+                TempData["MensagemSucesso"] = "Usuário apagado com sucesso!";
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                TempData["MensagemErro"] = e.Message;
+                return RedirectToAction("Index");
             }
         }
     }
