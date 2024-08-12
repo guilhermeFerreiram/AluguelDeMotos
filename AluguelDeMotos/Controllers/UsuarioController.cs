@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AluguelDeMotos.Models.Usuarios;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AluguelDeMotos.Controllers
 {
@@ -7,6 +8,22 @@ namespace AluguelDeMotos.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult Criar()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Criar(UsuarioModel usuario)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(usuario);
         }
     }
 }
