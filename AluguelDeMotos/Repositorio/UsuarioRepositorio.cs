@@ -18,5 +18,10 @@ namespace AluguelDeMotos.Repositorio
             _context.SaveChanges();
             return usuario;
         }
+
+        public List<UsuarioModel> BuscarTodos()
+        {
+            return _context.Usuarios.ToList();
+        }
     }
 }

@@ -5,5 +5,6 @@ namespace AluguelDeMotos.Repositorio
     public interface IUsuarioRepositorio
     {
         public UsuarioModel Adicionar(UsuarioModel usuario);
+        public List<UsuarioModel> BuscarTodos();
     }
 }

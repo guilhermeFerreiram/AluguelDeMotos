@@ -14,7 +14,16 @@ namespace AluguelDeMotos.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            try
+            {
+                var usuarios = _usuarioRepositorio.BuscarTodos();
+                return View(usuarios);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public IActionResult Criar()
