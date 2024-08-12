@@ -1,7 +1,13 @@
+using AluguelDeMotos.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddEntityFrameworkNpgsql()
+    .AddDbContext<BancoContext>(o => o.UseNpgsql(builder.Configuration.GetConnectionString("DataBase")));
 
 var app = builder.Build();
 
