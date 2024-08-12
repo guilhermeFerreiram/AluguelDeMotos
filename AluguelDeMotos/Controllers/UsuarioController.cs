@@ -49,5 +49,10 @@ namespace AluguelDeMotos.Controllers
                 throw;
             }
         }
+
+        public IActionResult Editar()
+        {
+            return View();
+        }
     }
 }
