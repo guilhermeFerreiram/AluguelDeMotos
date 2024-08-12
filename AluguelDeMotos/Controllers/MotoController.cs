@@ -88,5 +88,34 @@ namespace AluguelDeMotos.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        public IActionResult ApagarConfirmacao(int id)
+        {
+            try
+            {
+                var moto = _motoRepositorio.BuscarPorId(id);
+                return View(moto);
+            }
+            catch (Exception e)
+            {
+                TempData["MensagemErro"] = e.Message;
+                return RedirectToAction("Index");
+            }
+        }
+
+        public IActionResult Apagar(int id)
+        {
+            try
+            {
+                _motoRepositorio.Apagar(id);
+                TempData["MensagemSucesso"] = "Moto apagada com sucesso!";
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                TempData["MensagemErro"] = e.Message;
+                return RedirectToAction("Index");
+            }
+        }
     }
 }

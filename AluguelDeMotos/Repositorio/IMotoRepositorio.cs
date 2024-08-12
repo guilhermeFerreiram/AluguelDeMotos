@@ -9,5 +9,6 @@ namespace AluguelDeMotos.Repositorio
         public List<MotoModel> BuscarTodos();
         public MotoModel BuscarPorId(int id);
         public MotoModel Atualizar(MotoModel moto);
+        public bool Apagar(int id);
     }
 }

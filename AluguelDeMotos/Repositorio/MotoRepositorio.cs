@@ -42,5 +42,17 @@ namespace AluguelDeMotos.Repositorio
         {
             return _context.Motos.ToList();
         }
+
+        public bool Apagar(int id)
+        {
+            var motoDb = BuscarPorId(id);
+
+            if (motoDb == null) throw new Exception("Houve um problema ao deletar a moto");
+
+            _context.Motos.Remove(motoDb);
+            _context.SaveChanges();
+
+            return true;
+        }
     }
 }
