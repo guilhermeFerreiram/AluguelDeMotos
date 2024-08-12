@@ -1,5 +1,6 @@
 ﻿using AluguelDeMotos.Filters;
 using AluguelDeMotos.Models;
+using AluguelDeMotos.Models.Usuarios;
 using AluguelDeMotos.Repositorio;
 using Microsoft.AspNetCore.Mvc;
 
@@ -60,6 +61,26 @@ namespace AluguelDeMotos.Controllers
             {
                 var moto = _motoRepositorio.BuscarPorId(id);
                 return View(moto);
+            }
+            catch (Exception e)
+            {
+                TempData["MensagemErro"] = e.Message;
+                return RedirectToAction("Index");
+            }
+        }
+
+        public IActionResult Alterar(MotoModel moto)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _motoRepositorio.Atualizar(moto);
+                    TempData["MensagemSucesso"] = "Moto editada com sucesso!";
+                    return RedirectToAction("Index");
+                }
+
+                return View("Editar", moto);
             }
             catch (Exception e)
             {

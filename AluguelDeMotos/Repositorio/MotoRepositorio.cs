@@ -18,6 +18,21 @@ namespace AluguelDeMotos.Repositorio
             return moto;
         }
 
+        public MotoModel Atualizar(MotoModel moto)
+        {
+            var motoDb = BuscarPorId(moto.Id);
+
+            if (motoDb == null) throw new Exception("Houve um problema ao atualizar a moto");
+
+            motoDb.Ano = moto.Ano;
+            motoDb.Modelo = moto.Modelo;
+            motoDb.Placa = moto.Placa;
+
+            _context.Motos.Update(motoDb);
+            _context.SaveChanges();
+            return motoDb;
+        }
+
         public MotoModel BuscarPorId(int id)
         {
             return _context.Motos.FirstOrDefault(x => x.Id == id);

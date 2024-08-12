@@ -1,4 +1,5 @@
 ﻿using AluguelDeMotos.Models;
+using AluguelDeMotos.Models.Usuarios;
 
 namespace AluguelDeMotos.Repositorio
 {
@@ -7,5 +8,6 @@ namespace AluguelDeMotos.Repositorio
         public MotoModel Adicionar(MotoModel moto);
         public List<MotoModel> BuscarTodos();
         public MotoModel BuscarPorId(int id);
+        public MotoModel Atualizar(MotoModel moto);
     }
 }
