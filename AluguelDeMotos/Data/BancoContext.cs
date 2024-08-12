@@ -1,4 +1,5 @@
-﻿using AluguelDeMotos.Models.Usuarios;
+﻿using AluguelDeMotos.Models;
+using AluguelDeMotos.Models.Usuarios;
 using Microsoft.EntityFrameworkCore;
 
 namespace AluguelDeMotos.Data
@@ -10,5 +11,6 @@ namespace AluguelDeMotos.Data
         }
 
         public DbSet<UsuarioModel> Usuarios { get; set; }
+        public DbSet<MotoModel> Motos { get; set; }
     }
 }
