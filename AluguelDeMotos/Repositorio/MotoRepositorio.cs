@@ -18,6 +18,11 @@ namespace AluguelDeMotos.Repositorio
             return moto;
         }
 
+        public MotoModel BuscarPorId(int id)
+        {
+            return _context.Motos.FirstOrDefault(x => x.Id == id);
+        }
+
         public List<MotoModel> BuscarTodos()
         {
             return _context.Motos.ToList();

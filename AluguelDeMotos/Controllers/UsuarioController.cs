@@ -21,9 +21,10 @@ namespace AluguelDeMotos.Controllers
                 var usuarios = _usuarioRepositorio.BuscarTodos();
                 return View(usuarios);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                TempData["MensagemErro"] = e.Message;
+                return RedirectToAction("Index", "Home");
             }
         }
 

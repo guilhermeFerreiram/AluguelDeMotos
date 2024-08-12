@@ -16,8 +16,16 @@ namespace AluguelDeMotos.Controllers
 
         public IActionResult Index()
         {
-            var motos = _motoRepositorio.BuscarTodos();
-            return View(motos);
+            try
+            {
+                var motos = _motoRepositorio.BuscarTodos();
+                return View(motos);
+            }
+            catch (Exception e)
+            {
+                TempData["MensagemErro"] = e.Message;
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public IActionResult Criar()
@@ -37,6 +45,20 @@ namespace AluguelDeMotos.Controllers
                     return RedirectToAction("Index");
                 }
 
+                return View(moto);
+            }
+            catch (Exception e)
+            {
+                TempData["MensagemErro"] = e.Message;
+                return RedirectToAction("Index");
+            }
+        }
+
+        public IActionResult Editar(int id)
+        {
+            try
+            {
+                var moto = _motoRepositorio.BuscarPorId(id);
                 return View(moto);
             }
             catch (Exception e)
