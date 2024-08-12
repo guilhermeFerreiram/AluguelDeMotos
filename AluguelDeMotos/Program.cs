@@ -1,4 +1,5 @@
 using AluguelDeMotos.Data;
+using AluguelDeMotos.Repositorio;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +10,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddEntityFrameworkNpgsql()
     .AddDbContext<BancoContext>(o => o.UseNpgsql(builder.Configuration.GetConnectionString("DataBase")));
 
+builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+
 var app = builder.Build();
+
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -1,10 +1,17 @@
 ﻿using AluguelDeMotos.Models.Usuarios;
+using AluguelDeMotos.Repositorio;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AluguelDeMotos.Controllers
 {
     public class UsuarioController : Controller
     {
+        private readonly IUsuarioRepositorio _usuarioRepositorio;
+        public UsuarioController(IUsuarioRepositorio usuarioRepositorio)
+        {
+            _usuarioRepositorio = usuarioRepositorio;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -18,12 +25,20 @@ namespace AluguelDeMotos.Controllers
         [HttpPost]
         public IActionResult Criar(UsuarioModel usuario)
         {
-            if (ModelState.IsValid)
+            try
             {
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    _usuarioRepositorio.Adicionar(usuario);
+                    return RedirectToAction("Index");
+                }
 
-            return View(usuario);
+                return View(usuario);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
     }
 }
