@@ -19,6 +19,18 @@ namespace AluguelDeMotos.Repositorio
             return usuario;
         }
 
+        public bool Apagar(int id)
+        {
+            var usuarioDb = BuscarPorId(id);
+
+            if (usuarioDb == null) throw new Exception("Houve um problema ao deletar o usuario");
+
+            _context.Usuarios.Remove(usuarioDb);
+            _context.SaveChanges();
+
+            return true;
+        }
+
         public UsuarioModel Atualizar(UsuarioModel usuario)
         {
             var usuarioDb = BuscarPorId(usuario.Id);

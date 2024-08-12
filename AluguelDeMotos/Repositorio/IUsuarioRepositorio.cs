@@ -7,6 +7,7 @@ namespace AluguelDeMotos.Repositorio
         public UsuarioModel Adicionar(UsuarioModel usuario);
         public List<UsuarioModel> BuscarTodos();
         public UsuarioModel BuscarPorId(int id);
-        UsuarioModel Atualizar(UsuarioModel usuario);
+        public UsuarioModel Atualizar(UsuarioModel usuario);
+        public bool Apagar(int id);
     }
 }
