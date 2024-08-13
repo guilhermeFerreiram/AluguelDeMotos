@@ -11,12 +11,22 @@ namespace AluguelDeMotos.Data
         }
 
         public DbSet<UsuarioModel> Usuarios { get; set; }
+        public DbSet<EntregadorModel> Entregadores { get; set; }
+        public DbSet<CnhModel> Cnhs { get; set; }
         public DbSet<MotoModel> Motos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<MotoModel>()
                 .HasIndex(m => m.Placa)
+                .IsUnique();
+
+            modelBuilder.Entity<EntregadorModel>()
+                .HasIndex(e => e.Cnpj)
+                .IsUnique();
+
+            modelBuilder.Entity<CnhModel>()
+                .HasIndex(c => c.Numero)
                 .IsUnique();
         }
 
