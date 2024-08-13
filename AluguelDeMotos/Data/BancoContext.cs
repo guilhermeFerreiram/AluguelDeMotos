@@ -14,6 +14,7 @@ namespace AluguelDeMotos.Data
         public DbSet<AdminModel> Admins { get; set; }
         public DbSet<EntregadorModel> Entregadores { get; set; }
         public DbSet<MotoModel> Motos { get; set; }
+        public DbSet<LocacaoModel> Locacoes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +29,16 @@ namespace AluguelDeMotos.Data
             modelBuilder.Entity<EntregadorModel>()
                 .HasIndex(c => c.NumeroCnh)
                 .IsUnique();
+
+            modelBuilder.Entity<LocacaoModel>()
+                .HasOne(l => l.Entregador)
+                .WithOne(e => e.Locacao)
+                .HasForeignKey<LocacaoModel>(l => l.EntregadorId);
+
+            modelBuilder.Entity<LocacaoModel>()
+                .HasOne(l => l.Moto)
+                .WithOne(m => m.Locacao)
+                .HasForeignKey<LocacaoModel>(l => l.MotoId);
         }
 
     }
