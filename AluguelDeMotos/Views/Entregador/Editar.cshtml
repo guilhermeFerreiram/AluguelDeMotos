@@ -1,0 +1,63 @@
+﻿@model EntregadorModel
+
+@{
+    ViewData["Title"] = "Editar Usuário admin";
+}
+
+<div class="text-center">
+
+    <h1 class="display-4">Editar usuário admin</h1>
+
+</div>
+
+<form asp-controller="Entregador" asp-action="Alterar" method="post">
+
+    <input type="hidden" asp-for="Id">
+
+    <div class="mb-3">
+        <label for="nome" class="form-label">Nome</label>
+        <input type="text" class="form-control" id="nome" asp-for="Nome" placeholder="Digite o nome do usuário...">
+        @Html.ValidationMessageFor(x => x.Nome)
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" asp-for="Email" placeholder="Digite o email do usuário...">
+        @Html.ValidationMessageFor(x => x.Email)
+    </div>
+
+    <div class="form-group">
+        <label for="perfil" class="form-label">Perfil</label>
+        <select asp-for="Perfil" class="form-control">
+            <option value="@PerfilEnum.Entregador">Entregador</option>
+        </select>
+        @Html.ValidationMessageFor(x => x.Perfil)
+    </div>
+
+    <div class="mb-3">
+        <label for="cnpj" class="form-label">CNPJ</label>
+        <input type="text" class="form-control" id="cnpj" asp-for="Cnpj" placeholder="Digite o CNPJ do usuário...">
+        @Html.ValidationMessageFor(x => x.Cnpj)
+    </div>
+    <div class="mb-3">
+        <label for="nascimento" class="form-label">Data de Nascimento</label>
+        <input type="date" class="form-control" id="nascimento" asp-for="Nascimento" placeholder="Digite a data de nascimento do usuário...">
+        @Html.ValidationMessageFor(x => x.Nascimento)
+    </div>
+    <div class="mb-3">
+        <label for="numeroCnh" class="form-label">Número CNH</label>
+        <input type="number" class="form-control" id="numeroCnh" asp-for="NumeroCnh" placeholder="Digite o número da CNH do usuário...">
+        @Html.ValidationMessageFor(x => x.NumeroCnh)
+    </div>
+
+    <div class="form-group">
+        <label for="tipoCnh" class="form-label">Tipo CNH</label>
+        <select asp-for="TipoCnh" class="form-control">
+            <option value="@CnhEnum.A">A</option>
+            <option value="@CnhEnum.B">B</option>
+            <option value="@CnhEnum.AB">AB</option>
+        </select>
+        @Html.ValidationMessageFor(x => x.TipoCnh)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Editar</button>
+</form>

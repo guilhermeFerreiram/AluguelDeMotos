@@ -1,0 +1,85 @@
+﻿@model List<EntregadorModel>
+
+@{
+    ViewData["Title"] = "Listagem de Entregadores";
+}
+
+<div class="text-center">
+
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["MensagemSucesso"]
+            <button type="button" class="btn btn-danger btn-sm close-alert">X</button>
+        </div>
+    }
+
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert">X</button>
+            @TempData["MensagemErro"]
+        </div>
+    }
+
+    <br />
+
+
+    <h1 class="display-4">Listagem de Entregadores</h1>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a role="button" class="btn btn-primary" asp-controller="Entregador" asp-action="Criar">Cadastrar Novo Entregador</a>
+    </div>
+
+    <table class="table" id="tabela-entregadores">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">CNPJ</th>
+                <th scope="col">Data de Nascimento</th>
+                <th scope="col">CNH</th>
+                <th scope="col">Tipo CNH</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var entregador in Model)
+                {
+                    <tr>
+                        <td scope="row">@entregador.Id</td>
+                        <td>@entregador.Nome</td>
+                        <td>@entregador.Cnpj</td>
+                        <td>@entregador.Nascimento.ToShortDateString()</td>
+                        <td>@entregador.NumeroCnh</td>
+                        @switch (entregador.TipoCnh)
+                        {
+                            case CnhEnum.A:
+                                <td>A</td>
+                                break;
+                            case CnhEnum.B:
+                                <td>B</td>
+                                break;
+                            case CnhEnum.AB:
+                                <td>AB</td>
+                                break;
+                        }
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a role="button" class="btn btn-primary" asp-route-id="@entregador.Id" asp-controller="Entregador" asp-action="Editar">Editar</a>
+                                <a role="button" class="btn btn-danger" asp-route-id="@entregador.Id" asp-controller="Entregador" asp-action="ApagarConfirmacao">Apagar</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr class="odd"><td valign="top" colspan="5">Nenhum entregador encontrado...</td></tr>
+            }
+        </tbody>
+    </table>
+
+</div>

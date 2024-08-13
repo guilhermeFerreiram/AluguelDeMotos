@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AluguelDeMotos.Models.Usuarios
 {
-    public class EntregadorModel : UsuarioModel
+    public class EntregadorSemSenhaModel : UsuarioSemSenhaModel
     {
         [Required(ErrorMessage = "CNPJ do entregador obrigatório")]
         [MaxLength(18)]

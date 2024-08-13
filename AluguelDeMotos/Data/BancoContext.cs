@@ -13,7 +13,6 @@ namespace AluguelDeMotos.Data
         public DbSet<UsuarioModel> Usuarios { get; set; }
         public DbSet<AdminModel> Admins { get; set; }
         public DbSet<EntregadorModel> Entregadores { get; set; }
-        public DbSet<CnhModel> Cnhs { get; set; }
         public DbSet<MotoModel> Motos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,8 +25,8 @@ namespace AluguelDeMotos.Data
                 .HasIndex(e => e.Cnpj)
                 .IsUnique();
 
-            modelBuilder.Entity<CnhModel>()
-                .HasIndex(c => c.Numero)
+            modelBuilder.Entity<EntregadorModel>()
+                .HasIndex(c => c.NumeroCnh)
                 .IsUnique();
         }
 

@@ -63,5 +63,28 @@ namespace AluguelDeMotos.Repositorio
         {
             return _context.Usuarios.Where(x => x.Perfil == perfil).ToList();
         }
+
+        public UsuarioModel AtualizarEntregador(EntregadorModel entregador)
+        {
+            var usuarioDb = BuscarPorId(entregador.Id);
+
+            if (usuarioDb == null) throw new Exception("Houve um problema ao atualizar o usuário");
+
+            EntregadorModel entregadorDb = (EntregadorModel)usuarioDb;
+
+            entregadorDb.DataAtualizacao = DateTime.Now;
+
+            entregadorDb.Nome = entregador.Nome;
+            entregadorDb.Email = entregador.Email;
+            entregadorDb.Perfil = entregador.Perfil;
+            entregadorDb.Cnpj = entregador.Cnpj;
+            entregadorDb.Nascimento = entregador.Nascimento;
+            entregadorDb.NumeroCnh = entregador.NumeroCnh;
+            entregadorDb.TipoCnh = entregador.TipoCnh;
+
+            _context.Usuarios.Update(entregadorDb);
+            _context.SaveChanges();
+            return entregadorDb;
+        }
     }
 }

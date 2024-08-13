@@ -3,6 +3,7 @@ using System;
 using AluguelDeMotos.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AluguelDeMotos.Migrations
 {
     [DbContext(typeof(BancoContext))]
-    partial class BancoContextModelSnapshot : ModelSnapshot
+    [Migration("20240813172131_NumeroCnhParaString")]
+    partial class NumeroCnhParaString
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,29 @@ namespace AluguelDeMotos.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("AluguelDeMotos.Models.CnhModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Numero")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("Tipo")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Numero")
+                        .IsUnique();
+
+                    b.ToTable("Cnhs");
+                });
 
             modelBuilder.Entity("AluguelDeMotos.Models.MotoModel", b =>
                 {
@@ -38,8 +64,7 @@ namespace AluguelDeMotos.Migrations
 
                     b.Property<string>("Placa")
                         .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("character varying(8)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -103,29 +128,33 @@ namespace AluguelDeMotos.Migrations
                 {
                     b.HasBaseType("AluguelDeMotos.Models.Usuarios.UsuarioModel");
 
+                    b.Property<int>("CnhId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Cnpj")
                         .IsRequired()
-                        .HasMaxLength(18)
-                        .HasColumnType("character varying(18)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("Nascimento")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("NumeroCnh")
-                        .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("character varying(11)");
-
-                    b.Property<int>("TipoCnh")
-                        .HasColumnType("integer");
+                    b.HasIndex("CnhId");
 
                     b.HasIndex("Cnpj")
                         .IsUnique();
 
-                    b.HasIndex("NumeroCnh")
-                        .IsUnique();
-
                     b.HasDiscriminator().HasValue("EntregadorModel");
+                });
+
+            modelBuilder.Entity("AluguelDeMotos.Models.Usuarios.EntregadorModel", b =>
+                {
+                    b.HasOne("AluguelDeMotos.Models.CnhModel", "Cnh")
+                        .WithMany()
+                        .HasForeignKey("CnhId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cnh");
                 });
 #pragma warning restore 612, 618
         }
