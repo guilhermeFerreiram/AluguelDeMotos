@@ -11,6 +11,7 @@ namespace AluguelDeMotos.Data
         }
 
         public DbSet<UsuarioModel> Usuarios { get; set; }
+        public DbSet<AdminModel> Admins { get; set; }
         public DbSet<EntregadorModel> Entregadores { get; set; }
         public DbSet<CnhModel> Cnhs { get; set; }
         public DbSet<MotoModel> Motos { get; set; }

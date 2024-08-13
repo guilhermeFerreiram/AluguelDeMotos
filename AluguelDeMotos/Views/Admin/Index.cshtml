@@ -1,7 +1,7 @@
 ﻿@model List<UsuarioModel>
 
 @{
-    ViewData["Title"] = "Listagem de Usuários";
+    ViewData["Title"] = "Listagem de Usuários Admins";
 }
 
 <div class="text-center">
@@ -25,10 +25,10 @@
     <br />
 
 
-    <h1 class="display-4">Listagem de Usuários</h1>
+    <h1 class="display-4">Listagem de Usuários Admin</h1>
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-        <a role="button" class="btn btn-primary" asp-controller="Usuario" asp-action="Criar">Criar novo usuário</a>
+        <a role="button" class="btn btn-primary" asp-controller="Admin" asp-action="Criar">Criar novo usuário admin</a>
     </div>
 
     <table class="table" id="tabela-usuarios">
@@ -57,8 +57,8 @@
                         <td>@usuario.DataAtualizacao</td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <a role="button" class="btn btn-primary" asp-route-id="@usuario.Id" asp-controller="Usuario" asp-action="Editar">Editar</a>
-                                <a role="button" class="btn btn-danger" asp-route-id="@usuario.Id" asp-controller="Usuario" asp-action="ApagarConfirmacao">Apagar</a>
+                                <a role="button" class="btn btn-primary" asp-route-id="@usuario.Id" asp-controller="Admin" asp-action="Editar">Editar</a>
+                                <a role="button" class="btn btn-danger" asp-route-id="@usuario.Id" asp-controller="Admin" asp-action="ApagarConfirmacao">Apagar</a>
                             </div>
                         </td>
                     </tr>

@@ -1,16 +1,18 @@
-﻿@model UsuarioModel
+﻿@model AdminModel
 
 @{
-    ViewData["Title"] = "Criar Novo Usuário";
+    ViewData["Title"] = "Editar Usuário admin";
 }
 
 <div class="text-center">
 
-    <h1 class="display-4">Cadastrar usuário</h1>
+    <h1 class="display-4">Editar usuário admin</h1>
 
 </div>
 
-<form asp-controller="Usuario" asp-action="Criar" method="post">
+<form asp-controller="Admin" asp-action="Alterar" method="post">
+
+    <input type="hidden" asp-for="Id">
 
     <div class="mb-3">
         <label for="nome" class="form-label">Nome</label>
@@ -27,16 +29,9 @@
         <label for="perfil" class="form-label">Perfil</label>
         <select asp-for="Perfil" class="form-control">
             <option value="@PerfilEnum.Admin">Administrador</option>
-            <option value="@PerfilEnum.Entregador">Entregador</option>
         </select>
         @Html.ValidationMessageFor(x => x.Perfil)
     </div>
 
-    <div class="mb-3">
-        <label for="senha" class="form-label">Senha</label>
-        <input type="password" class="form-control" id="senha" asp-for="Senha" placeholder="Digite a senha do usuário...">
-        @Html.ValidationMessageFor(x => x.Senha)
-    </div>
-
-    <button type="submit" class="btn btn-primary">Criar</button>
+    <button type="submit" class="btn btn-primary">Editar</button>
 </form>

@@ -1,4 +1,5 @@
 ﻿using AluguelDeMotos.Data;
+using AluguelDeMotos.Enums;
 using AluguelDeMotos.Models.Usuarios;
 
 namespace AluguelDeMotos.Repositorio
@@ -18,7 +19,7 @@ namespace AluguelDeMotos.Repositorio
             _context.SaveChanges();
             return usuario;
         }
-
+        
         public bool Apagar(int id)
         {
             var usuarioDb = BuscarPorId(id);
@@ -58,9 +59,9 @@ namespace AluguelDeMotos.Repositorio
             return _context.Usuarios.FirstOrDefault(x => x.Email == email);
         }
 
-        public List<UsuarioModel> BuscarTodos()
+        public List<UsuarioModel> BuscarTodos(PerfilEnum perfil)
         {
-            return _context.Usuarios.ToList();
+            return _context.Usuarios.Where(x => x.Perfil == perfil).ToList();
         }
     }
 }

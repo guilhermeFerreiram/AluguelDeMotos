@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AluguelDeMotos.Models.Usuarios
 {
-    public class UsuarioSemSenhaModel
+    public class AdminSemSenhaModel
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "Nome do usuário obrigatório")]

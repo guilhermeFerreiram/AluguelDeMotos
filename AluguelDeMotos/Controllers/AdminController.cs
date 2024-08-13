@@ -1,4 +1,5 @@
-﻿using AluguelDeMotos.Filters;
+﻿using AluguelDeMotos.Enums;
+using AluguelDeMotos.Filters;
 using AluguelDeMotos.Models.Usuarios;
 using AluguelDeMotos.Repositorio;
 using Microsoft.AspNetCore.Mvc;
@@ -6,10 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace AluguelDeMotos.Controllers
 {
     [SomenteAdmin]
-    public class UsuarioController : Controller
+    public class AdminController : Controller
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
-        public UsuarioController(IUsuarioRepositorio usuarioRepositorio)
+        public AdminController(IUsuarioRepositorio usuarioRepositorio)
         {
             _usuarioRepositorio = usuarioRepositorio;
         }
@@ -18,7 +19,7 @@ namespace AluguelDeMotos.Controllers
         {
             try
             {
-                var usuarios = _usuarioRepositorio.BuscarTodos();
+                var usuarios = _usuarioRepositorio.BuscarTodos(PerfilEnum.Admin);
                 return View(usuarios);
             }
             catch (Exception e)
@@ -34,18 +35,18 @@ namespace AluguelDeMotos.Controllers
         }
 
         [HttpPost]
-        public IActionResult Criar(UsuarioModel usuario)
+        public IActionResult Criar(AdminModel admin)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _usuarioRepositorio.Adicionar(usuario);
+                    _usuarioRepositorio.Adicionar(admin);
                     TempData["MensagemSucesso"] = "Usuário criado com sucesso!";
                     return RedirectToAction("Index");
                 }
 
-                return View(usuario);
+                return View(admin);
             }
             catch (Exception e)
             {
@@ -68,28 +69,28 @@ namespace AluguelDeMotos.Controllers
             }
         }
 
-        public IActionResult Alterar(UsuarioSemSenhaModel usuarioSemSenha)
+        public IActionResult Alterar(AdminSemSenhaModel adminSemSenha)
         {
             try
             {
-                UsuarioModel usuario = null;
+                UsuarioModel admin = null;
 
                 if (ModelState.IsValid)
                 {
-                    usuario = new UsuarioModel()
+                    admin = new AdminModel()
                     {
-                        Id = usuarioSemSenha.Id,
-                        Nome = usuarioSemSenha.Nome,
-                        Email = usuarioSemSenha.Email,
-                        Perfil = usuarioSemSenha.Perfil
+                        Id = adminSemSenha.Id,
+                        Nome = adminSemSenha.Nome,
+                        Email = adminSemSenha.Email,
+                        Perfil = adminSemSenha.Perfil
                     };
 
-                    _usuarioRepositorio.Atualizar(usuario);
+                    _usuarioRepositorio.Atualizar(admin);
                     TempData["MensagemSucesso"] = "Usuário editado com sucesso!";
                     return RedirectToAction("Index");
                 }
 
-                return View("Editar", usuario);
+                return View("Editar", admin);
             }
             catch (Exception e)
             {
