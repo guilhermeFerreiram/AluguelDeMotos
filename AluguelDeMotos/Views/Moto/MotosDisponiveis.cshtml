@@ -1,0 +1,70 @@
+﻿@model List<MotoModel>
+
+@{
+    ViewData["Title"] = "Listagem de Motos";
+}
+
+<div class="text-center">
+
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["MensagemSucesso"]
+            <button type="button" class="btn btn-danger btn-sm close-alert">X</button>
+        </div>
+    }
+
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert">X</button>
+            @TempData["MensagemErro"]
+        </div>
+    }
+
+    <br />
+
+
+    <h1 class="display-4">Listagem de Motos</h1>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a role="button" class="btn btn-primary" asp-controller="Moto" asp-action="Criar">Cadastrar Nova Moto</a>
+    </div>
+
+    <table class="table" id="tabela-motos">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Ano</th>
+                <th scope="col">Modelo</th>
+                <th scope="col">Placa</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var moto in Model)
+                {
+                    <tr>
+                        <th scope="row">@moto.Id</th>
+                        <td>@moto.Ano</td>
+                        <td>@(moto.Modelo == ModeloEnum.Economica ? "Econômica" : "Comfort")</td>
+                        <td>@moto.Placa</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a role="button" class="btn btn-primary" asp-route-id="@moto.Id" asp-controller="Moto" asp-action="Editar">Editar</a>
+                                <a role="button" class="btn btn-danger" asp-route-id="@moto.Id" asp-controller="Moto" asp-action="ApagarConfirmacao">Apagar</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr class="odd"><td valign="top" colspan="5">Nenhuma moto encontrada...</td></tr>
+            }
+        </tbody>
+    </table>
+
+</div>

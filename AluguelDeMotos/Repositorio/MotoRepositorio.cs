@@ -54,5 +54,10 @@ namespace AluguelDeMotos.Repositorio
 
             return true;
         }
+
+        public List<MotoModel> BuscarDisponiveis()
+        {
+            return _context.Motos.Where(x => x.Alugada == false).ToList();
+        }
     }
 }

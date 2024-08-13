@@ -16,6 +16,7 @@ namespace AluguelDeMotos.Models
         [RegularExpression(@"^[A-Z]{3}-\d{1}[A-Z0-9]{1}\d{2}$", ErrorMessage = "A placa deve estar no formato ABC-1234 ou ABC-1D23.")]
         public string Placa { get; set; }
         public LocacaoModel? Locacao { get; set; }
+        public bool? Alugada { get; set; }
 
     }
 }

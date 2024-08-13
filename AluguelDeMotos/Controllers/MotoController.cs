@@ -31,6 +31,20 @@ namespace AluguelDeMotos.Controllers
             }
         }
 
+        public IActionResult MotosDisponiveis()
+        {
+            try
+            {
+                var motos = _motoRepositorio.BuscarDisponiveis();
+                return View(motos);
+            }
+            catch (Exception e)
+            {
+                TempData["MensagemErro"] = e.Message;
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
         public IActionResult Criar()
         {
             return View();
@@ -43,6 +57,7 @@ namespace AluguelDeMotos.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    moto.Alugada = false;
                     _motoRepositorio.Adicionar(moto);
                     TempData["MensagemSucesso"] = "Moto criada com sucesso!";
                     return RedirectToAction("Index");
