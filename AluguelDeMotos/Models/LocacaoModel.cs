@@ -9,7 +9,7 @@ namespace AluguelDeMotos.Models
         public DateTime? DataDevolucao { get; set; }
         public int MotoId { get; set; }
         public MotoModel Moto { get; set; }
-        public int EntregadorId { get; set; }
-        public EntregadorModel Entregador { get; set; }
+        public int UsuarioId { get; set; }
+        public UsuarioModel Usuario { get; set; }
     }
 }

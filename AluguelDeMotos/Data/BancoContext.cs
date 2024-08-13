@@ -31,9 +31,9 @@ namespace AluguelDeMotos.Data
                 .IsUnique();
 
             modelBuilder.Entity<LocacaoModel>()
-                .HasOne(l => l.Entregador)
+                .HasOne(l => l.Usuario)
                 .WithOne(e => e.Locacao)
-                .HasForeignKey<LocacaoModel>(l => l.EntregadorId);
+                .HasForeignKey<LocacaoModel>(l => l.UsuarioId);
 
             modelBuilder.Entity<LocacaoModel>()
                 .HasOne(l => l.Moto)

@@ -17,6 +17,5 @@ namespace AluguelDeMotos.Models.Usuarios
         public string NumeroCnh { get; set; }
         [Required(ErrorMessage = "Tipo CNH obrigatório")]
         public CnhEnum TipoCnh { get; set; }
-        public LocacaoModel? Locacao { get; set; }
     }
 }

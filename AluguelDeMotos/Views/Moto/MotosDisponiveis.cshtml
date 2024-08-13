@@ -25,11 +25,7 @@
     <br />
 
 
-    <h1 class="display-4">Listagem de Motos</h1>
-
-    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-        <a role="button" class="btn btn-primary" asp-controller="Moto" asp-action="Criar">Cadastrar Nova Moto</a>
-    </div>
+    <h1 class="display-4">Listagem de Motos Disponíveis</h1>
 
     <table class="table" id="tabela-motos">
         <thead>
@@ -53,8 +49,7 @@
                         <td>@moto.Placa</td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <a role="button" class="btn btn-primary" asp-route-id="@moto.Id" asp-controller="Moto" asp-action="Editar">Editar</a>
-                                <a role="button" class="btn btn-danger" asp-route-id="@moto.Id" asp-controller="Moto" asp-action="ApagarConfirmacao">Apagar</a>
+                                <a role="button" class="btn btn-primary" asp-route-id="@moto.Id" asp-controller="Locacao" asp-action="Alugar">Alugar</a>
                             </div>
                         </td>
                     </tr>

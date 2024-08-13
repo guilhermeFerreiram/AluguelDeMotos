@@ -1,14 +1,11 @@
 ﻿using AluguelDeMotos.Filters;
 using AluguelDeMotos.Models;
-using AluguelDeMotos.Models.Usuarios;
 using AluguelDeMotos.Repositorio;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
 
 namespace AluguelDeMotos.Controllers
 {
-    [SomenteAdmin]
     public class MotoController : Controller
     {
         private readonly IMotoRepositorio _motoRepositorio;
@@ -17,6 +14,7 @@ namespace AluguelDeMotos.Controllers
             _motoRepositorio = motoRepositorio;
         }
 
+        [SomenteAdmin]
         public IActionResult Index()
         {
             try
@@ -31,6 +29,7 @@ namespace AluguelDeMotos.Controllers
             }
         }
 
+        [SomenteUsuarioLogado]
         public IActionResult MotosDisponiveis()
         {
             try
@@ -45,11 +44,13 @@ namespace AluguelDeMotos.Controllers
             }
         }
 
+        [SomenteAdmin]
         public IActionResult Criar()
         {
             return View();
         }
 
+        [SomenteAdmin]
         [HttpPost]
         public IActionResult Criar(MotoModel moto)
         {
@@ -84,6 +85,7 @@ namespace AluguelDeMotos.Controllers
             }
         }
 
+        [SomenteAdmin]
         public IActionResult Editar(int id)
         {
             try
@@ -98,6 +100,7 @@ namespace AluguelDeMotos.Controllers
             }
         }
 
+        [SomenteAdmin]
         public IActionResult Alterar(MotoModel moto)
         {
             try
@@ -129,6 +132,7 @@ namespace AluguelDeMotos.Controllers
             }
         }
 
+        [SomenteAdmin]
         public IActionResult ApagarConfirmacao(int id)
         {
             try
@@ -143,6 +147,7 @@ namespace AluguelDeMotos.Controllers
             }
         }
 
+        [SomenteAdmin]
         public IActionResult Apagar(int id)
         {
             try
