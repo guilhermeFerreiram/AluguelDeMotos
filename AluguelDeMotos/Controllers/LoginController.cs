@@ -1,4 +1,5 @@
-﻿using AluguelDeMotos.Helper;
+﻿using AluguelDeMotos.Enums;
+using AluguelDeMotos.Helper;
 using AluguelDeMotos.Models.Usuarios;
 using AluguelDeMotos.Repositorio;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +35,15 @@ namespace AluguelDeMotos.Controllers
                         if (usuario.SenhaValida(login.Senha))
                         {
                             _sessao.CriarSessaoUsuario(usuario);
-                            return RedirectToAction("Index", "Moto");
+
+                            switch (usuario.Perfil)
+                            {
+                                case PerfilEnum.Entregador:
+                                    return RedirectToAction("MotosDisponiveis", "Moto");
+
+                                case PerfilEnum.Admin:
+                                    return RedirectToAction("Index", "Moto");
+                            }
                         }
 
                         TempData["MensagemErro"] = "Senha inválida. Tente novamente.";

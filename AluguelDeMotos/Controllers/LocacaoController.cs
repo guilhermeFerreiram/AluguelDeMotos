@@ -84,7 +84,7 @@ namespace AluguelDeMotos.Controllers
                 _usuariosRepositorio.AtualizarEntregador(entregador);
 
                 TempData["MensagemSucesso"] = "Locação efetuada com sucesso!";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Locacao");
             }
             catch (Exception e)
             {
@@ -154,7 +154,7 @@ namespace AluguelDeMotos.Controllers
                 _locacaoRepositorio.Apagar(locacao.Id);
 
                 TempData["MensagemSucesso"] = "Moto devolvida com sucesso!";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("MotosDisponiveis", "Moto");
             }
             catch (Exception e)
             {
