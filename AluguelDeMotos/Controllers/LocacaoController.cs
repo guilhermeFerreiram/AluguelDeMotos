@@ -70,7 +70,7 @@ namespace AluguelDeMotos.Controllers
         {
             try
             {
-                locacao.DataLocacao = DateTime.Now;
+                locacao.DataLocacao = DateTime.Now.AddDays(1);
                 locacao.DefinirValorLocacao();
 
                 _locacaoRepositorio.Adicionar(locacao);
@@ -118,10 +118,43 @@ namespace AluguelDeMotos.Controllers
                 LocacaoModel locacao = new LocacaoModel
                 {
                     MotoId = moto.Id,
-                    UsuarioId = usuario.Id
+                    UsuarioId = usuario.Id,
+                    DataDevolucao = DateTime.Now.AddDays(1) //Para o formulário iniciar com a data seguinte no campo Data de Devolução
                 };
 
                 return View(locacao);
+            }
+            catch (Exception e)
+            {
+                TempData["MensagemErro"] = e.Message;
+
+                if (e.InnerException != null)
+                {
+                    TempData["MensagemErro"] = e.InnerException.Message;
+                }
+
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        
+        public IActionResult Devolver(int id)
+        {
+            try
+            {
+                var locacao = _locacaoRepositorio.BuscarPorId(id);
+
+                var entregador = _usuariosRepositorio.BuscarEntregador(locacao.UsuarioId);
+                entregador.LocacaoAtiva = false;
+                _usuariosRepositorio.Atualizar(entregador);
+
+                var moto = _motoRepositorio.BuscarPorId(locacao.MotoId);
+                moto.Alugada = false;
+                _motoRepositorio.Atualizar(moto);
+
+                _locacaoRepositorio.Apagar(locacao.Id);
+
+                TempData["MensagemSucesso"] = "Moto devolvida com sucesso!";
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception e)
             {

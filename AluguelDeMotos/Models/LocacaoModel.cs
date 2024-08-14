@@ -23,11 +23,14 @@ namespace AluguelDeMotos.Models
 
         public void DefinirValorLocacao()
         {
+
             switch (Plano)
             {
                 case PlanoEnum.seteDias:
 
-                    var diasEfetivos = DataDevolucao.Day - DataLocacao.Day;
+                    var ts = DataDevolucao.Subtract(DataLocacao);
+                    var diasEfetivos = (int)Math.Ceiling(ts.TotalDays);
+
                     Console.WriteLine("AQUIIIIIII " + diasEfetivos);
                     int diasPlano = 7;
                     PrevisaoDevolucao = DataLocacao + new TimeSpan(diasPlano, 0, 0, 0);
@@ -39,7 +42,8 @@ namespace AluguelDeMotos.Models
                     break;
                 case PlanoEnum.quinzeDias:
 
-                    diasEfetivos = DataDevolucao.Day - DataLocacao.Day;
+                    ts = DataDevolucao.Subtract(DataLocacao);
+                    diasEfetivos = (int)Math.Ceiling(ts.TotalDays);
                     diasPlano = 15;
                     PrevisaoDevolucao = DataLocacao + new TimeSpan(diasPlano, 0, 0, 0);
                     ValorPorDia = 28m;
@@ -50,7 +54,8 @@ namespace AluguelDeMotos.Models
                     break;
                 case PlanoEnum.trintaDias:
 
-                    diasEfetivos = DataDevolucao.Day - DataLocacao.Day;
+                    ts = DataDevolucao.Subtract(DataLocacao);
+                    diasEfetivos = (int)Math.Ceiling(ts.TotalDays);
                     diasPlano = 30;
                     PrevisaoDevolucao = DataLocacao + new TimeSpan(diasPlano, 0, 0, 0);
                     ValorPorDia = 22m;
@@ -61,7 +66,8 @@ namespace AluguelDeMotos.Models
                     break;
                 case PlanoEnum.quarentaECincoDias:
 
-                    diasEfetivos = DataDevolucao.Day - DataLocacao.Day;
+                    ts = DataDevolucao.Subtract(DataLocacao);
+                    diasEfetivos = (int)Math.Ceiling(ts.TotalDays);
                     diasPlano = 45;
                     PrevisaoDevolucao = DataLocacao + new TimeSpan(diasPlano, 0, 0, 0);
                     ValorPorDia = 20m;
@@ -72,7 +78,8 @@ namespace AluguelDeMotos.Models
                     break;
                 case PlanoEnum.cinquentaDias:
 
-                    diasEfetivos = DataDevolucao.Day - DataLocacao.Day;
+                    ts = DataDevolucao.Subtract(DataLocacao);
+                    diasEfetivos = (int)Math.Ceiling(ts.TotalDays);
                     diasPlano = 50;
                     PrevisaoDevolucao = DataLocacao + new TimeSpan(diasPlano, 0, 0, 0);
                     ValorPorDia = 18m;

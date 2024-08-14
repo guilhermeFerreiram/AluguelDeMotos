@@ -6,5 +6,7 @@ namespace AluguelDeMotos.Repositorio
     {
         public LocacaoModel Adicionar(LocacaoModel locacao);
         public LocacaoModel BuscarPorUsuarioId(int usuarioId);
+        public LocacaoModel BuscarPorId(int id);
+        public bool Apagar(int id);
     }
 }

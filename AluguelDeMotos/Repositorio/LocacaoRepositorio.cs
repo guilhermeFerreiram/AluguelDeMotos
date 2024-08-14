@@ -23,5 +23,21 @@ namespace AluguelDeMotos.Repositorio
         {
             return _context.Locacoes.FirstOrDefault(x => x.UsuarioId == usuarioId);
         }
+
+        public LocacaoModel BuscarPorId(int id)
+        {
+            return _context.Locacoes.FirstOrDefault(x => x.Id == id);
+        }
+
+        public bool Apagar(int id)
+        {
+            var locacaoDb = BuscarPorId(id);
+            if (locacaoDb == null) throw new Exception("Houve um problema ao deletar a moto");
+
+            _context.Locacoes.Remove(locacaoDb);
+            _context.SaveChanges();
+
+            return true;
+        }
     }
 }

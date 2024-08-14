@@ -16,7 +16,7 @@
         <p>Ano: @Model.Moto.Ano</p>
         <p>Placa: @Model.Moto.Placa</p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-            <a role="button" class="btn btn-danger" asp-controller="Locacao" asp-action="Devolver">Devolver</a>
+            <a role="button" class="btn btn-danger" asp-route-id="@Model.Locacao.Id" asp-controller="Locacao" asp-action="Devolver">Devolver</a>
         </div>
     </div>
 </div>
