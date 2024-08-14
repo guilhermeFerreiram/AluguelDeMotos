@@ -1,0 +1,37 @@
+﻿@model LocacaoModel
+
+@{
+    ViewData["Title"] = "Escolher planos para Locacão";
+}
+
+<div class="text-center">
+
+    <h1 class="display-4">Planos para Locação</h1>
+
+</div>
+
+<form asp-controller="Locacao" asp-action="Alugar">
+
+    <input type="hidden" class="form-control" asp-for="MotoId" placeholder="Digite a placa da moto...">
+    <input type="hidden" class="form-control" asp-for="UsuarioId" placeholder="Digite a placa da moto...">
+
+    <div class="form-group">
+        <label for="planos" class="form-label">Planos</label>
+        <select asp-for="Plano" class="form-control">
+            <option value="@PlanoEnum.seteDias">7 dias com um custo de R$30,00 por dia</option>
+            <option value="@PlanoEnum.quinzeDias">15 dias com um custo de R$28,00 por dia</option>
+            <option value="@PlanoEnum.trintaDias">30 dias com um custo de R$22,00 por dia</option>
+            <option value="@PlanoEnum.quarentaECincoDias">45 dias com um custo de R$20,00 por dia</option>
+            <option value="@PlanoEnum.cinquentaDias">50 dias com um custo de R$18,00 por dia</option>
+        </select>
+        @Html.ValidationMessageFor(x => x.Plano)
+    </div>
+
+    <div class="mb-3">
+        <label for="dataDevolucao" class="form-label">Data de Devolução</label>
+        <input type="date" class="form-control" id="dataDevolucao" asp-for="DataDevolucao" placeholder="Digite a placa da moto...">
+        @Html.ValidationMessageFor(x => x.DataDevolucao)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+</form>

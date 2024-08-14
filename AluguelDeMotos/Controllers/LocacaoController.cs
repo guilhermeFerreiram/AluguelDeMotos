@@ -66,7 +66,40 @@ namespace AluguelDeMotos.Controllers
 
         }
 
-        public IActionResult Alugar(int id)
+        public IActionResult Alugar(LocacaoModel locacao)
+        {
+            try
+            {
+                locacao.DataLocacao = DateTime.Now;
+                locacao.DefinirValorLocacao();
+
+                _locacaoRepositorio.Adicionar(locacao);
+
+                var moto = _motoRepositorio.BuscarPorId(locacao.MotoId);
+                moto.Alugada = true;
+                _motoRepositorio.Atualizar(moto);
+
+                var entregador = _usuariosRepositorio.BuscarEntregador(locacao.UsuarioId);
+                entregador.LocacaoAtiva = true;
+                _usuariosRepositorio.AtualizarEntregador(entregador);
+
+                TempData["MensagemSucesso"] = "Locação efetuada com sucesso!";
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception e)
+            {
+                TempData["MensagemErro"] = e.Message + e.StackTrace;
+
+                if (e.InnerException != null)
+                {
+                    TempData["MensagemErro"] = e.InnerException.Message + e.InnerException.StackTrace;
+                }
+
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        public IActionResult Planos(int id)
         {
             try
             {
@@ -85,20 +118,10 @@ namespace AluguelDeMotos.Controllers
                 LocacaoModel locacao = new LocacaoModel
                 {
                     MotoId = moto.Id,
-                    UsuarioId = usuario.Id,
-                    DataLocacao = DateTime.Now
+                    UsuarioId = usuario.Id
                 };
 
-                _locacaoRepositorio.Adicionar(locacao);
-
-                moto.Alugada = true;
-                _motoRepositorio.Atualizar(moto);
-
-                entregador.LocacaoAtiva = true;
-                _usuariosRepositorio.AtualizarEntregador(entregador);
-
-                TempData["MensagemSucesso"] = "Locação efetuada com sucesso!";
-                return RedirectToAction("Index", "Home");
+                return View(locacao);
             }
             catch (Exception e)
             {
