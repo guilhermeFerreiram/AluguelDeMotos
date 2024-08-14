@@ -18,5 +18,10 @@ namespace AluguelDeMotos.Repositorio
             _context.SaveChanges();
             return locacao;
         }
+
+        public LocacaoModel BuscarPorUsuarioId(int usuarioId)
+        {
+            return _context.Locacoes.FirstOrDefault(x => x.UsuarioId == usuarioId);
+        }
     }
 }

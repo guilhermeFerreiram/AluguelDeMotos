@@ -1,12 +1,15 @@
 ﻿using AluguelDeMotos.Enums;
+using AluguelDeMotos.Filters;
 using AluguelDeMotos.Helper;
 using AluguelDeMotos.Models;
 using AluguelDeMotos.Models.Usuarios;
+using AluguelDeMotos.Models.ViewModel;
 using AluguelDeMotos.Repositorio;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AluguelDeMotos.Controllers
 {
+    [SomenteUsuarioLogado]
     public class LocacaoController : Controller
     {
         private readonly IMotoRepositorio _motoRepositorio;
@@ -25,7 +28,42 @@ namespace AluguelDeMotos.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            try
+            {
+                //Coleta e valida entregador
+                var usuario = _sessao.BuscarSessaoUsuario();
+                if (usuario == null) throw new Exception("Erro ao buscar sessão do usuário");
+
+                if (usuario.Perfil != PerfilEnum.Entregador) throw new Exception("Somente entregadores podem alugar motos");
+                var entregador = _usuariosRepositorio.BuscarEntregador(usuario.Id);
+                if (entregador == null) throw new Exception("Erro ao buscar entregador");
+
+                if (entregador.LocacaoAtiva != true) throw new Exception("O entregador não possui locação ativa");
+
+                //Coleta e valida locação
+                var locacao = _locacaoRepositorio.BuscarPorUsuarioId(entregador.Id);
+                if (locacao == null) throw new Exception("Erro ao buscar locaçao do usuário");
+
+                //Coleta e valida moto
+                var moto = _motoRepositorio.BuscarPorId(locacao.MotoId);
+                if (moto == null) throw new Exception("Erro ao buscar moto");
+
+                LocacaoViewModel locacaoViewModel = new LocacaoViewModel
+                {
+                    Locacao = locacao,
+                    Entregador = entregador,
+                    Moto = moto
+                };
+
+                return View(locacaoViewModel);
+            }
+            catch (Exception e)
+            {
+                TempData["MensagemErro"] = e.Message;
+
+                return RedirectToAction("MotosDisponiveis", "Moto");
+            }
+
         }
 
         public IActionResult Alugar(int id)

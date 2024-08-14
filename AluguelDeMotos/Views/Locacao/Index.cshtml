@@ -1,0 +1,22 @@
+﻿@model LocacaoViewModel
+
+<div>
+    <div>
+        <p class="fw-bold">Entregador</p>
+        <p>Nome: @Model.Entregador.Nome</p>
+        <p>CNPJ: @Model.Entregador.Cnpj</p>
+        <p>Número CNH: @Model.Entregador.NumeroCnh</p>
+        <p>Tipo CNH: @Model.Entregador.TipoCnh</p>
+        <p>Data de nascimento: @Model.Entregador.Nascimento.ToShortDateString()</p>
+    </div>
+    <br />
+    <div>
+        <p class="fw-bold">Moto</p>
+        <p>Modelo: @Model.Moto.Modelo</p>
+        <p>Ano: @Model.Moto.Ano</p>
+        <p>Placa: @Model.Moto.Placa</p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <a role="button" class="btn btn-danger" asp-controller="Locacao" asp-action="Devolver">Devolver</a>
+        </div>
+    </div>
+</div>
