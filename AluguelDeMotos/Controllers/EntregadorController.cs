@@ -1,5 +1,6 @@
 ﻿using AluguelDeMotos.Enums;
 using AluguelDeMotos.Filters;
+using AluguelDeMotos.Helper;
 using AluguelDeMotos.Models.Usuarios;
 using AluguelDeMotos.Repositorio;
 using Microsoft.AspNetCore.Mvc;
@@ -7,15 +8,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AluguelDeMotos.Controllers
 {
-    [SomenteAdmin]
     public class EntregadorController : Controller
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
-        public EntregadorController(IUsuarioRepositorio usuarioRepositorio)
+        private readonly ISessao _sessao;
+        public EntregadorController(IUsuarioRepositorio usuarioRepositorio,
+                                    ISessao sessao)
         {
             _usuarioRepositorio = usuarioRepositorio;
+            _sessao = sessao;
         }
 
+        [SomenteAdmin]
         public IActionResult Index()
         {
             try
@@ -77,20 +81,31 @@ namespace AluguelDeMotos.Controllers
             }
         }
 
+        [SomenteUsuarioLogado]
         public IActionResult Editar(int id)
         {
             try
             {
-                var usuario = _usuarioRepositorio.BuscarPorId(id);
-                return View(usuario);
+                var usuario = _sessao.BuscarSessaoUsuario();
+                if (usuario == null) throw new Exception("Erro ao encontrar sessao do usuário");
+
+                if (usuario.Perfil == PerfilEnum.Entregador)
+                {
+                    if (usuario.Id != id) throw new Exception("Você pode editar apenas seu perfil");
+                }
+
+                var entregador = _usuarioRepositorio.BuscarEntregador(id);
+
+                return View(entregador);
             }
             catch (Exception e)
             {
                 TempData["MensagemErro"] = e.Message;
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
         }
 
+        [SomenteUsuarioLogado]
         public IActionResult Alterar(EntregadorSemSenhaModel entregadorSemSenha)
         {
             try
@@ -113,7 +128,7 @@ namespace AluguelDeMotos.Controllers
 
                     _usuarioRepositorio.AtualizarEntregador(entregador);
                     TempData["MensagemSucesso"] = "Usuário editado com sucesso!";
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home");
                 }
 
                 return View("Editar", entregador);
@@ -125,6 +140,7 @@ namespace AluguelDeMotos.Controllers
             }
         }
 
+        [SomenteAdmin]
         public IActionResult ApagarConfirmacao(int id)
         {
             try

@@ -1,5 +1,6 @@
 ﻿using AluguelDeMotos.Enums;
 using AluguelDeMotos.Filters;
+using AluguelDeMotos.Helper;
 using AluguelDeMotos.Models.Usuarios;
 using AluguelDeMotos.Repositorio;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +11,12 @@ namespace AluguelDeMotos.Controllers
     public class AdminController : Controller
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
-        public AdminController(IUsuarioRepositorio usuarioRepositorio)
+        private readonly ISessao _sessao;
+        public AdminController(IUsuarioRepositorio usuarioRepositorio,
+                               ISessao sessao)
         {
             _usuarioRepositorio = usuarioRepositorio;
+            _sessao = sessao;
         }
 
         public IActionResult Index()
@@ -59,8 +63,13 @@ namespace AluguelDeMotos.Controllers
         {
             try
             {
-                var usuario = _usuarioRepositorio.BuscarPorId(id);
-                return View(usuario);
+                var usuario = _sessao.BuscarSessaoUsuario();
+                if (usuario == null) throw new Exception("Erro ao encontrar sessao do usuário");
+                if (usuario.Id != id) throw new Exception("Você pode editar apenas seu perfil");
+
+                var admin = _usuarioRepositorio.BuscarAdmin(usuario.Id);
+
+                return View(admin);
             }
             catch (Exception e)
             {
@@ -103,8 +112,13 @@ namespace AluguelDeMotos.Controllers
         {
             try
             {
-                var usuario = _usuarioRepositorio.BuscarPorId(id);
-                return View(usuario);
+                var usuario = _sessao.BuscarSessaoUsuario();
+                if (usuario == null) throw new Exception("Erro ao encontrar sessao do usuário");
+                if (usuario.Id != id) throw new Exception("Você pode apagar apenas seu perfil");
+
+                var admin = _usuarioRepositorio.BuscarAdmin(usuario.Id);
+
+                return View(admin);
             }
             catch (Exception e)
             {

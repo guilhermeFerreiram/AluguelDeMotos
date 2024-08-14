@@ -91,5 +91,10 @@ namespace AluguelDeMotos.Repositorio
         {
             return _context.Usuarios.OfType<EntregadorModel>().FirstOrDefault(x => x.Id == id);
         }
+
+        public AdminModel BuscarAdmin(int id)
+        {
+            return _context.Usuarios.OfType<AdminModel>().FirstOrDefault(x => x.Id == id);
+        }
     }
 }
