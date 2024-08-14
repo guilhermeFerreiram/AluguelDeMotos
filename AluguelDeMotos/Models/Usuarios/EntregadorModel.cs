@@ -17,5 +17,15 @@ namespace AluguelDeMotos.Models.Usuarios
         public string NumeroCnh { get; set; }
         [Required(ErrorMessage = "Tipo CNH obrigatório")]
         public CnhEnum TipoCnh { get; set; }
+        public bool? LocacaoAtiva { get; set; }
+
+        public bool EstaAptoParaAlugar()
+        {
+            if (LocacaoAtiva == true) throw new Exception("Entregador já possui uma locação ativa");
+
+            if (TipoCnh != CnhEnum.A && TipoCnh != CnhEnum.AB) throw new Exception("Entregador não possui habilitação válida para alugar motos");
+
+            return true;
+        }
     }
 }

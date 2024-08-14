@@ -45,18 +45,19 @@ namespace AluguelDeMotos.Controllers
         }
 
         [HttpPost]
-        public IActionResult Criar(EntregadorModel admin)
+        public IActionResult Criar(EntregadorModel entregador)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _usuarioRepositorio.Adicionar(admin);
+                    entregador.LocacaoAtiva = false;
+                    _usuarioRepositorio.Adicionar(entregador);
                     TempData["MensagemSucesso"] = "Usuário criado com sucesso!";
                     return RedirectToAction("Index");
                 }
 
-                return View(admin);
+                return View(entregador);
             }
             catch (DbUpdateException e)
             {

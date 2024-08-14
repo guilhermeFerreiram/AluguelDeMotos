@@ -12,5 +12,6 @@ namespace AluguelDeMotos.Repositorio
         public bool Apagar(int id);
         public UsuarioModel BuscarPorEmail(string email);
         public UsuarioModel AtualizarEntregador(EntregadorModel usuario);
+        public EntregadorModel BuscarEntregador(int id);
     }
 }

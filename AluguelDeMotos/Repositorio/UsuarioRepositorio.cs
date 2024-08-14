@@ -86,5 +86,10 @@ namespace AluguelDeMotos.Repositorio
             _context.SaveChanges();
             return entregadorDb;
         }
+
+        public EntregadorModel BuscarEntregador(int id)
+        {
+            return _context.Usuarios.OfType<EntregadorModel>().FirstOrDefault(x => x.Id == id);
+        }
     }
 }
