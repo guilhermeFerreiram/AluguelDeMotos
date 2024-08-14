@@ -6,5 +6,6 @@ namespace AluguelDeMotos.Helper
     {
         public void CriarSessaoUsuario(UsuarioModel usuario);
         public UsuarioModel BuscarSessaoUsuario();
+        public void RemoverSessaoUsuario();
     }
 }

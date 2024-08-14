@@ -27,9 +27,10 @@ namespace AluguelDeMotos.Models
             {
                 case PlanoEnum.seteDias:
 
-                    var diasEfetivos = DataDevolucao.Subtract(DataLocacao);
-                    TimeSpan diasPlano = new TimeSpan(7, 0, 0, 0);
-                    PrevisaoDevolucao = DataLocacao + diasPlano;
+                    var diasEfetivos = DataDevolucao.Day - DataLocacao.Day;
+                    Console.WriteLine("AQUIIIIIII " + diasEfetivos);
+                    int diasPlano = 7;
+                    PrevisaoDevolucao = DataLocacao + new TimeSpan(diasPlano, 0, 0, 0);
                     ValorPorDia = 30m;
                     decimal taxa = 0.20m;
 
@@ -38,9 +39,9 @@ namespace AluguelDeMotos.Models
                     break;
                 case PlanoEnum.quinzeDias:
 
-                    diasEfetivos = DataDevolucao.Subtract(DataLocacao);
-                    diasPlano = new TimeSpan(15, 0, 0, 0);
-                    PrevisaoDevolucao = DataLocacao + diasPlano;
+                    diasEfetivos = DataDevolucao.Day - DataLocacao.Day;
+                    diasPlano = 15;
+                    PrevisaoDevolucao = DataLocacao + new TimeSpan(diasPlano, 0, 0, 0);
                     ValorPorDia = 28m;
                     taxa = 0.40m;
 
@@ -49,9 +50,9 @@ namespace AluguelDeMotos.Models
                     break;
                 case PlanoEnum.trintaDias:
 
-                    diasEfetivos = DataDevolucao.Subtract(DataLocacao);
-                    diasPlano = new TimeSpan(30, 0, 0, 0);
-                    PrevisaoDevolucao = DataLocacao + diasPlano;
+                    diasEfetivos = DataDevolucao.Day - DataLocacao.Day;
+                    diasPlano = 30;
+                    PrevisaoDevolucao = DataLocacao + new TimeSpan(diasPlano, 0, 0, 0);
                     ValorPorDia = 22m;
                     taxa = 0.40m;
 
@@ -60,9 +61,9 @@ namespace AluguelDeMotos.Models
                     break;
                 case PlanoEnum.quarentaECincoDias:
 
-                    diasEfetivos = DataDevolucao.Subtract(DataLocacao);
-                    diasPlano = new TimeSpan(45, 0, 0, 0);
-                    PrevisaoDevolucao = DataLocacao + diasPlano;
+                    diasEfetivos = DataDevolucao.Day - DataLocacao.Day;
+                    diasPlano = 45;
+                    PrevisaoDevolucao = DataLocacao + new TimeSpan(diasPlano, 0, 0, 0);
                     ValorPorDia = 20m;
                     taxa = 0.40m;
 
@@ -71,9 +72,9 @@ namespace AluguelDeMotos.Models
                     break;
                 case PlanoEnum.cinquentaDias:
 
-                    diasEfetivos = DataDevolucao.Subtract(DataLocacao);
-                    diasPlano = new TimeSpan(50, 0, 0, 0);
-                    PrevisaoDevolucao = DataLocacao + diasPlano;
+                    diasEfetivos = DataDevolucao.Day - DataLocacao.Day;
+                    diasPlano = 50;
+                    PrevisaoDevolucao = DataLocacao + new TimeSpan(diasPlano, 0, 0, 0);
                     ValorPorDia = 18m;
                     taxa = 0.40m;
 
@@ -83,7 +84,7 @@ namespace AluguelDeMotos.Models
             }
         }
 
-        private void DiferencaEntreDias(TimeSpan diasEfetivos, TimeSpan diasPlano, decimal taxa)
+        private void DiferencaEntreDias(int diasEfetivos, int diasPlano, decimal taxa)
         {
             if (diasEfetivos < diasPlano)
             {
@@ -99,29 +100,29 @@ namespace AluguelDeMotos.Models
             }
         }
 
-        private decimal EfetivosMenorQuePlano(TimeSpan diasEfetivos, TimeSpan diasPlano, decimal taxa)
+        private decimal EfetivosMenorQuePlano(int diasEfetivos, int diasPlano, decimal taxa)
         {
             var diasNaoEfetivos = diasPlano - diasEfetivos;
 
-            var valorEfetivos = diasEfetivos.Days * ValorPorDia;
-            Multa = (diasNaoEfetivos.Days * ValorPorDia) * taxa;
+            var valorEfetivos = diasEfetivos * ValorPorDia;
+            Multa = (diasNaoEfetivos * ValorPorDia) * taxa;
 
             return valorEfetivos + Multa;
         }
 
-        private decimal EfetivosMaiorQuePlano(TimeSpan diasEfetivos, TimeSpan diasPlano)
+        private decimal EfetivosMaiorQuePlano(int diasEfetivos, int diasPlano)
         {
             var diasAdicionais = diasEfetivos - diasPlano;
 
-            var valorEfetivos = diasPlano.Days * ValorPorDia;
-            Multa = diasAdicionais.Days * 50m;
+            var valorEfetivos = diasPlano * ValorPorDia;
+            Multa = diasAdicionais * 50m;
 
             return valorEfetivos + Multa;
         }
 
-        private decimal EfetivosIgualAoPlano(TimeSpan diasPlano)
+        private decimal EfetivosIgualAoPlano(int diasPlano)
         {
-            return diasPlano.Days * ValorPorDia;
+            return diasPlano * ValorPorDia;
         }
     }
 }

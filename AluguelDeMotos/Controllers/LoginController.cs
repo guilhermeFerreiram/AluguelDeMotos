@@ -53,5 +53,12 @@ namespace AluguelDeMotos.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        public IActionResult Sair()
+        {
+            _sessao.RemoverSessaoUsuario();
+
+            return RedirectToAction("Index", "Login");
+        }
     }
 }

@@ -25,5 +25,10 @@ namespace AluguelDeMotos.Helper
 
             return JsonConvert.DeserializeObject<UsuarioModel>(sessaoUsuario);
         }
+
+        public void RemoverSessaoUsuario()
+        {
+            _httpContext.HttpContext.Session.Remove("sessaoUsuarioLogado");
+        }
     }
 }
