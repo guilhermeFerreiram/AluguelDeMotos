@@ -38,6 +38,7 @@
                 <th scope="col">Ano</th>
                 <th scope="col">Modelo</th>
                 <th scope="col">Placa</th>
+                <th scope="col">Alugada</th>
                 <th></th>
             </tr>
         </thead>
@@ -51,6 +52,7 @@
                         <td>@moto.Ano</td>
                         <td>@(moto.Modelo == ModeloEnum.Economica ? "Econômica" : "Comfort")</td>
                         <td>@moto.Placa</td>
+                        <td>@(moto.Alugada == true ? "Sim" : "Não")</td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a role="button" class="btn btn-primary" asp-route-id="@moto.Id" asp-controller="Moto" asp-action="Editar">Editar</a>

@@ -152,6 +152,11 @@ namespace AluguelDeMotos.Controllers
         {
             try
             {
+                var moto = _motoRepositorio.BuscarPorId(id);
+                if (moto == null) throw new Exception("Erro ao buscar moto");
+
+                if (moto.Alugada == true) throw new Exception("Esta moto está alugada e, portanto, não pode ser apagada do banco de dados");
+
                 _motoRepositorio.Apagar(id);
                 TempData["MensagemSucesso"] = "Moto apagada com sucesso!";
                 return RedirectToAction("Index");
