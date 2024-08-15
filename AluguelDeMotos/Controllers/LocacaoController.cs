@@ -70,7 +70,6 @@ namespace AluguelDeMotos.Controllers
         {
             try
             {
-                locacao.DataLocacao = DateTime.Now.AddDays(1);
                 locacao.DefinirValorLocacao();
 
                 _locacaoRepositorio.Adicionar(locacao);
@@ -167,6 +166,13 @@ namespace AluguelDeMotos.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        public IActionResult AlugarConfirmacao(LocacaoModel locacao)
+        {
+            locacao.DataLocacao = DateTime.Now.AddDays(1);
+            locacao.DefinirValorLocacao();
+            return View(locacao);
         }
     }
 }

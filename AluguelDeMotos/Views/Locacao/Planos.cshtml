@@ -10,7 +10,7 @@
 
 </div>
 
-<form asp-controller="Locacao" asp-action="Alugar">
+<form asp-controller="Locacao" asp-action="AlugarConfirmacao">
 
     <input type="hidden" class="form-control" asp-for="MotoId" placeholder="Digite a placa da moto...">
     <input type="hidden" class="form-control" asp-for="UsuarioId" placeholder="Digite a placa da moto...">
@@ -33,5 +33,6 @@
         @Html.ValidationMessageFor(x => x.DataDevolucao)
     </div>
 
-    <button type="submit" class="btn btn-primary">Alugar</button>
+    <button type="submit" class="btn btn-success">Confirmar</button>
+    <a role="button" class="btn btn-primary" asp-controller="Moto" asp-action="MotosDisponiveis">Voltar</a>
 </form>

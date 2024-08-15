@@ -1,0 +1,81 @@
+﻿@model LocacaoModel
+
+@{
+    ViewData["Title"] = "Confirmar Locacão";
+}
+
+<div class="text-center">
+
+    <h1 class="display-4">Confirme a Locação</h1>
+
+</div>
+
+<form asp-controller="Locacao" asp-action="Alugar">
+
+    <input type="hidden" class="form-control" asp-for="MotoId" placeholder="Digite a placa da moto...">
+    <input type="hidden" class="form-control" asp-for="UsuarioId" placeholder="Digite a placa da moto...">
+
+    <div class="form-group">
+        <label for="planos" class="form-label">Planos</label>
+        <select asp-for="Plano" class="form-control" readonly>
+            @switch (Model.Plano)
+            {
+                case PlanoEnum.seteDias:
+                    <option value="@PlanoEnum.seteDias">7 dias com um custo de R$30,00 por dia</option>
+                    break;
+                case PlanoEnum.quinzeDias:
+                    <option value="@PlanoEnum.quinzeDias">15 dias com um custo de R$28,00 por dia</option>
+                    break;
+                case PlanoEnum.trintaDias:
+                    <option value="@PlanoEnum.trintaDias">30 dias com um custo de R$22,00 por dia</option>
+                    break;
+                case PlanoEnum.quarentaECincoDias:
+                    <option value="@PlanoEnum.quarentaECincoDias">45 dias com um custo de R$20,00 por dia</option>
+                    break;
+                case PlanoEnum.cinquentaDias:
+                    <option value="@PlanoEnum.cinquentaDias">50 dias com um custo de R$18,00 por dia</option>
+                    break;
+            }
+        </select>
+        @Html.ValidationMessageFor(x => x.Plano)
+    </div>
+
+    <div class="mb-3">
+        <label for="dataLocacao" class="form-label">Data de Locação</label>
+        <input type="date" class="form-control" id="dataLocacao" asp-for="DataLocacao" readonly>
+        @Html.ValidationMessageFor(x => x.DataLocacao)
+    </div>
+
+    <div class="mb-3">
+        <label for="dataDevolucao" class="form-label">Data de Devolução</label>
+        <input type="date" class="form-control" id="dataDevolucao" asp-for="DataDevolucao" readonly>
+        @Html.ValidationMessageFor(x => x.DataDevolucao)
+    </div>
+
+    <div class="mb-3">
+        <label for="previsaoDevolucao" class="form-label">Previsão da Devolução</label>
+        <input type="date" class="form-control" id="previsaoDevolucao" asp-for="PrevisaoDevolucao" readonly>
+        @Html.ValidationMessageFor(x => x.PrevisaoDevolucao)
+    </div>
+
+    <div class="mb-3">
+        <label for="valorLocacao" class="form-label">Valor da Locação</label>
+        <input type="number" class="form-control" id="valorLocacao" asp-for="ValorLocacao" readonly>
+        @Html.ValidationMessageFor(x => x.ValorLocacao)
+    </div>
+
+    <div class="mb-3">
+        <label for="multa" class="form-label">Multa</label>
+        <input type="number" class="form-control" id="multa" asp-for="Multa" readonly>
+        @Html.ValidationMessageFor(x => x.Multa)
+    </div>
+
+    <div class="mb-3">
+        <label for="total" class="form-label">Total</label>
+        <input type="number" class="form-control" id="total" asp-for="ValorTotal" readonly>
+        @Html.ValidationMessageFor(x => x.ValorTotal)
+    </div>
+
+    <button type="submit" class="btn btn-success">Alugar</button>
+    <a role="button" class="btn btn-primary" asp-controller="Moto" asp-action="MotosDisponiveis">Voltar</a>
+</form>
