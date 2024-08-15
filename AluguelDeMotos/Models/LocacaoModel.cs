@@ -14,6 +14,7 @@ namespace AluguelDeMotos.Models
         public decimal ValorPorDia { get; set; }
         public decimal Multa { get; set; } //pode tirar essas prop
         public decimal ValorTotal { get; set; }
+        public decimal ValorLocacao { get; set; }
         [Required(ErrorMessage = "Selecione o plano para locação")]
         public PlanoEnum Plano { get; set; }
         public int MotoId { get; set; }
@@ -30,8 +31,6 @@ namespace AluguelDeMotos.Models
 
                     var ts = DataDevolucao.Subtract(DataLocacao);
                     var diasEfetivos = (int)Math.Ceiling(ts.TotalDays);
-
-                    Console.WriteLine("AQUIIIIIII " + diasEfetivos);
                     int diasPlano = 7;
                     PrevisaoDevolucao = DataLocacao + new TimeSpan(diasPlano, 0, 0, 0);
                     ValorPorDia = 30m;
@@ -111,20 +110,20 @@ namespace AluguelDeMotos.Models
         {
             var diasNaoEfetivos = diasPlano - diasEfetivos;
 
-            var valorEfetivos = diasEfetivos * ValorPorDia;
+            ValorLocacao = diasEfetivos * ValorPorDia;
             Multa = (diasNaoEfetivos * ValorPorDia) * taxa;
 
-            return valorEfetivos + Multa;
+            return ValorLocacao + Multa;
         }
 
         private decimal EfetivosMaiorQuePlano(int diasEfetivos, int diasPlano)
         {
             var diasAdicionais = diasEfetivos - diasPlano;
 
-            var valorEfetivos = diasPlano * ValorPorDia;
+            ValorLocacao = diasPlano * ValorPorDia;
             Multa = diasAdicionais * 50m;
 
-            return valorEfetivos + Multa;
+            return ValorLocacao + Multa;
         }
 
         private decimal EfetivosIgualAoPlano(int diasPlano)

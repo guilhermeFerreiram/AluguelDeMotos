@@ -18,24 +18,55 @@
     }
 </div>
 
-<div>
-    <div>
-        <p class="fw-bold">Entregador</p>
-        <p>Nome: @Model.Entregador.Nome</p>
-        <p>CNPJ: @Model.Entregador.Cnpj</p>
-        <p>Número CNH: @Model.Entregador.NumeroCnh</p>
-        <p>Tipo CNH: @Model.Entregador.TipoCnh</p>
-        <p>Data de nascimento: @Model.Entregador.Nascimento.ToShortDateString()</p>
-    </div>
-    <br />
-    <div>
-        <p class="fw-bold">Moto</p>
-        <p>Modelo: @Model.Moto.Modelo</p>
-        <p>Ano: @Model.Moto.Ano</p>
-        <p>Placa: @Model.Moto.Placa</p>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-            <a role="button" class="btn btn-danger" asp-route-id="@Model.Locacao.Id" asp-controller="Locacao" asp-action="Devolver">Devolver</a>
-            <a role="button" class="btn btn-primary" asp-route-id="@Model.Entregador.Id" asp-controller="Entregador" asp-action="Editar">Editar Meu perfil</a>
+<div class="text-center">
+    <div class="container text-center">
+        <div class="row align-items-start">
+            <div class="col">
+                <p class="fw-bold">Entregador</p>
+                <p>Nome: @Model.Entregador.Nome</p>
+                <p>CNPJ: @Model.Entregador.Cnpj</p>
+                <p>Número CNH: @Model.Entregador.NumeroCnh</p>
+                <p>Tipo CNH: @Model.Entregador.TipoCnh</p>
+                <p>Data de nascimento: @Model.Entregador.Nascimento.ToShortDateString()</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                    <a role="button" class="btn btn-primary" asp-route-id="@Model.Entregador.Id" asp-controller="Entregador" asp-action="Editar">Editar Meu perfil</a>
+                </div>
+            </div>
+            <div class="col">
+                <p class="fw-bold">Moto</p>
+                <p>Modelo: @Model.Moto.Modelo</p>
+                <p>Ano: @Model.Moto.Ano</p>
+                <p>Placa: @Model.Moto.Placa</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                    <a role="button" class="btn btn-danger" asp-route-id="@Model.Locacao.Id" asp-controller="Locacao" asp-action="Devolver">Devolver</a>
+                </div>
+            </div>
+            <div class="col">
+                <p class="fw-bold">Plano</p>
+                @switch (Model.Locacao.Plano)
+                {
+                    case PlanoEnum.seteDias:
+                        <p>7 dias com um custo de R$30,00 por dia</p>
+                        break;
+                    case PlanoEnum.quinzeDias:
+                        <p>15 dias com um custo de R$28,00 por dia</p>
+                        break;
+                    case PlanoEnum.trintaDias:
+                        <p>30 dias com um custo de R$22,00 por dia</p>
+                        break;
+                    case PlanoEnum.quarentaECincoDias:
+                        <p>45 dias com um custo de R$20,00 por dia</p>
+                        break;
+                    case PlanoEnum.cinquentaDias:
+                        <p>50 dias com um custo de R$18,00 por dia</p>
+                        break;
+                }
+                <p>Data da locação: @Model.Locacao.DataLocacao.ToShortDateString()</p>
+                <p>Data para devolução: @Model.Locacao.DataDevolucao.ToShortDateString()</p>
+                <p>Valor locacão: R$@Model.Locacao.ValorLocacao.ToString("F2", CultureInfo.InvariantCulture)</p>
+                <p>Multa: R$@Model.Locacao.Multa.ToString("F2", CultureInfo.InvariantCulture)</p>
+                <p>Valor total: R$@Model.Locacao.ValorTotal.ToString("F2", CultureInfo.InvariantCulture)</p>
+            </div>
         </div>
-    </div>
+    </div>    
 </div>
