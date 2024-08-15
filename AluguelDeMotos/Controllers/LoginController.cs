@@ -19,7 +19,29 @@ namespace AluguelDeMotos.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            try
+            {
+                var adminDb = _usuarioRepositorio.BuscarPorEmail("admin@example.com");
+                if (adminDb == null)
+                {
+                    var admin = new AdminModel
+                    {
+                        Nome = "Adimn",
+                        Email = "admin@example.com",
+                        Perfil = PerfilEnum.Admin,
+                        Senha = "1234"
+                    };
+
+                    _usuarioRepositorio.Adicionar(admin);
+                }
+
+                return View();
+            }
+            catch (Exception e)
+            {
+                TempData["MensagemErro"] = e.Message;
+                return RedirectToAction("Index");
+            }
         }
 
         public IActionResult Entrar(LoginModel login)
