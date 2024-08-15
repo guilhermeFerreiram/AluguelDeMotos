@@ -39,7 +39,15 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Locacao" asp-action="Index">Meu Aluguel</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Moto" asp-action="Index">Motos</a>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Motos
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="nav-link text-dark" asp-area="" asp-controller="Moto" asp-action="Index">Todas as Motos</a></li>
+                                    <li><a class="nav-link text-dark" asp-area="" asp-controller="Moto" asp-action="MotosDisponiveis">Motos Disponiveis</a></li>
+                                </ul>
+                            </div>
                         </li>
                     </ul>
                 </div>
