@@ -69,6 +69,11 @@ $ git clone https://github.com/guilhermeFerreiram/ControleDeContatosMVC.git
   "AllowedHosts": "*"
 }
 ```
+<h3 align="center">Atenção</h3>
+
+<p align="center">O aplicativo cria por conta própria um perfil administrador com email <strong>"admin@example.com"</strong> e senha <strong>"1234"</strong>. No primeiro run do projeto, você pode logar como administrador utilizando este login.</p>
+
+
 <h2 id="clone" align="center">:open_file_folder: Como testar o aplicativo</h2>
 
 <p align="center">Dentre as funcionalidades da aplicação, as principais são:</p>
