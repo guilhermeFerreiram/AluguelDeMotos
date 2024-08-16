@@ -35,15 +35,12 @@
   JQuery DataTable &bull;
   Bootsrap &bull;
   PostregreSQL &bull;
-  Entity Framework
+  Entity Framework &bull;
+  Docker
 </p>
 
 <br>
 <h2 id="executar" align="center">:open_file_folder: Como executar o aplicativo</h2>
-
-<h3 align="center">Requisitos</h3>
-
-<p align="center">Versão .NET 8 SDK // Visual Studio 2022</p>
 
 <h3 align="center">Clone o repositório</h3>
 
@@ -53,31 +50,16 @@
 # Clone todo o repositório
 $ git clone https://github.com/guilhermeFerreiram/ControleDeContatosMVC.git
 ```
-<h3 align="center">PostgreSQL</h3>
+<h3 align="center">Docker</h3>
 
-<p align="center">Certifique-se de ter a intalação do PostgreSQL devidamente configurada em sua máquina ou em nuvem.</p>
-<p align="center">Para a aplicação funcionar corretamente, é necessário que você informe a <strong>string de conexão</strong> do seu banco de dados. 
-  Abra o arquivo appsettings.json e, no campo "DataBase", insira a sua string.</p>
+<p align="center">Dentro do diretório que o arquivo docker-compose.yml está contido, abra o terminal e execute o seguinte comando:</p>
 
 ```
-{
-  "Logging": {
-    "LogLevel": {
-      "Default": "Information",
-      "Microsoft.AspNetCore": "Warning"
-    }
-  },
-  "ConnectionStrings": {
-    "DataBase": "{sua-string-de-conexão-aqui}"
-  },
-  "AllowedHosts": "*"
-}
+docker-compose up
 ```
-<p align="center">No terminal ou no console de comando do Visual Studio, execute:</p>
+<h3 align="center">Acessando o app</h3>
 
-```
-dotnet ef database update
-```
+<p align="center">Em seu navegador, digite o seguinte endereço: <strong>http://localhost:5000/</strong></p>
 
 <h3 align="center">Atenção</h3>
 
