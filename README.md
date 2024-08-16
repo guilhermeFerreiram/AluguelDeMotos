@@ -11,8 +11,8 @@
 <p align="center">
   <a href="#objective">:dart: Descrição</a> &bull;
   <a href="#techs">:pushpin: Tecnologias</a> &bull;
-  <a href="#clone">:open_file_folder: Como instalar o aplicativo</a> &bull;
-  <a href="#clone">:open_file_folder: Como testar o aplicativo</a> &bull;
+  <a href="#executar">:open_file_folder: Como executar o aplicativo</a> &bull;
+  <a href="#testar">:open_file_folder: Como testar o aplicativo</a> &bull;
   <a href="#author">:bust_in_silhouette: Autor</a> &bull; 
   <a href="#license">:page_with_curl: Licença</a>
 </p>
@@ -39,7 +39,11 @@
 </p>
 
 <br>
-<h2 id="clone" align="center">:open_file_folder: Como instalar o aplicativo</h2>
+<h2 id="executar" align="center">:open_file_folder: Como executar o aplicativo</h2>
+
+<h3 align="center">Requisitos</h3>
+
+<p align="center">Versão .NET 8 SDK // Visual Studio 2022</p>
 
 <h3 align="center">Clone o repositório</h3>
 
@@ -52,7 +56,7 @@ $ git clone https://github.com/guilhermeFerreiram/ControleDeContatosMVC.git
 <h3 align="center">PostgreSQL</h3>
 
 <p align="center">Certifique-se de ter a intalação do PostgreSQL devidamente configurada em sua máquina ou em nuvem.</p>
-<p align="center">Para a aplicação funcionar corretamente, é necessário que você informa a <strong>string de conexão</strong> do seu banco de dados. 
+<p align="center">Para a aplicação funcionar corretamente, é necessário que você informe a <strong>string de conexão</strong> do seu banco de dados. 
   Abra o arquivo appsettings.json e, no campo "DataBase", insira a sua string.</p>
 
 ```
@@ -69,12 +73,17 @@ $ git clone https://github.com/guilhermeFerreiram/ControleDeContatosMVC.git
   "AllowedHosts": "*"
 }
 ```
+<p align="center">No terminal ou no console de comando do Visual Studio, execute:</p>
+
+```
+dotnet ef database update
+```
+
 <h3 align="center">Atenção</h3>
 
 <p align="center">O aplicativo cria por conta própria um perfil administrador com email <strong>"admin@example.com"</strong> e senha <strong>"1234"</strong>. No primeiro run do projeto, você pode logar como administrador utilizando este login.</p>
 
-
-<h2 id="clone" align="center">:open_file_folder: Como testar o aplicativo</h2>
+<h2 id="testar" align="center">:open_file_folder: Como testar o aplicativo</h2>
 
 <p align="center">Dentre as funcionalidades da aplicação, as principais são:</p>
 
