@@ -1,6 +1,7 @@
 ﻿using AluguelDeMotos.Models;
 using AluguelDeMotos.Models.Usuarios;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AluguelDeMotos.Data
 {
@@ -18,6 +19,7 @@ namespace AluguelDeMotos.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<MotoModel>()
                 .HasIndex(m => m.Placa)
                 .IsUnique();

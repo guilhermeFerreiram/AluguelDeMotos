@@ -7,10 +7,10 @@ namespace AluguelDeMotos.Models
     public class LocacaoModel
     {
         public int Id { get; set; }
-        public DateTime DataLocacao { get; set; }
+        public DateTimeOffset DataLocacao { get; set; }
         [Required(ErrorMessage = "Selecione a data para devolução")]
-        public DateTime DataDevolucao { get; set; }
-        public DateTime PrevisaoDevolucao { get; set; }
+        public DateTimeOffset DataDevolucao { get; set; }
+        public DateTimeOffset PrevisaoDevolucao { get; set; }
         public decimal ValorPorDia { get; set; }
         public decimal Multa { get; set; } //pode tirar essas prop
         public decimal ValorTotal { get; set; }

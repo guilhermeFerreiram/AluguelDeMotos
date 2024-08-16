@@ -15,8 +15,8 @@ namespace AluguelDeMotos.Models.Usuarios
         public PerfilEnum Perfil { get; set; }
         [Required(ErrorMessage = "Senha do usuário obrigatória")]
         public string Senha { get; set; }
-        public DateTime DataCadastro { get; set; }
-        public DateTime? DataAtualizacao { get; set; }
+        public DateTimeOffset DataCadastro { get; set; }
+        public DateTimeOffset? DataAtualizacao { get; set; }
         public LocacaoModel? Locacao { get; set; }
 
         public bool SenhaValida(string senha)

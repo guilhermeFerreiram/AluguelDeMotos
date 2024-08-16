@@ -27,7 +27,7 @@
                 <p>CNPJ: @Model.Entregador.Cnpj</p>
                 <p>Número CNH: @Model.Entregador.NumeroCnh</p>
                 <p>Tipo CNH: @Model.Entregador.TipoCnh</p>
-                <p>Data de nascimento: @Model.Entregador.Nascimento.ToShortDateString()</p>
+                <p>Data de nascimento: @Model.Entregador.Nascimento</p>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                     <a role="button" class="btn btn-primary" asp-route-id="@Model.Entregador.Id" asp-controller="Entregador" asp-action="Editar">Editar Meu perfil</a>
                 </div>
@@ -61,8 +61,8 @@
                         <p>50 dias com um custo de R$18,00 por dia</p>
                         break;
                 }
-                <p>Data da locação: @Model.Locacao.DataLocacao.ToShortDateString()</p>
-                <p>Data para devolução: @Model.Locacao.DataDevolucao.ToShortDateString()</p>
+                <p>Data da locação: @Model.Locacao.DataLocacao</p>
+                <p>Data para devolução: @Model.Locacao.DataDevolucao</p>
                 <p>Valor locacão: R$@Model.Locacao.ValorLocacao.ToString("F2", CultureInfo.InvariantCulture)</p>
                 <p>Multa: R$@Model.Locacao.Multa.ToString("F2", CultureInfo.InvariantCulture)</p>
                 <p>Valor total: R$@Model.Locacao.ValorTotal.ToString("F2", CultureInfo.InvariantCulture)</p>
