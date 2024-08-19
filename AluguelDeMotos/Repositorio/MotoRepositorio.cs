@@ -1,4 +1,5 @@
 ﻿using AluguelDeMotos.Data;
+using AluguelDeMotos.Events;
 using AluguelDeMotos.Models;
 
 namespace AluguelDeMotos.Repositorio
@@ -6,15 +7,23 @@ namespace AluguelDeMotos.Repositorio
     public class MotoRepositorio : IMotoRepositorio
     {
         private readonly BancoContext _context;
+        public event EventHandler<MotoCadastradaEventArgs> MotoCadastrada;
+
         public MotoRepositorio(BancoContext context)
         {
             _context = context;
+        }
+
+        protected virtual void OnMotoCadastrada(MotoModel moto)
+        {
+            MotoCadastrada?.Invoke(this, new MotoCadastradaEventArgs(moto));
         }
 
         public MotoModel Adicionar(MotoModel moto)
         {
             _context.Motos.Add(moto);
             _context.SaveChanges();
+            OnMotoCadastrada(moto);
             return moto;
         }
 

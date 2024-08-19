@@ -1,7 +1,7 @@
-﻿using AluguelDeMotos.Models;
+﻿using AluguelDeMotos.Mensageria;
+using AluguelDeMotos.Models;
 using AluguelDeMotos.Models.Usuarios;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AluguelDeMotos.Data
 {

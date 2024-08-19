@@ -1,5 +1,6 @@
 using AluguelDeMotos.Data;
 using AluguelDeMotos.Helper;
+using AluguelDeMotos.Mensageria;
 using AluguelDeMotos.Repositorio;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,7 @@ public partial class Program
         builder.Services.AddScoped<IMotoRepositorio, MotoRepositorio>();
         builder.Services.AddScoped<ILocacaoRepositorio, LocacaoRepositorio>();
         builder.Services.AddScoped<ISessao, Sessao>();
+        builder.Services.AddScoped<IRabbitMQService, RabbitMQService>();
 
         builder.Services.AddSession(o =>
         {

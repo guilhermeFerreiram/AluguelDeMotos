@@ -1,4 +1,6 @@
-﻿using AluguelDeMotos.Filters;
+﻿using AluguelDeMotos.Events;
+using AluguelDeMotos.Filters;
+using AluguelDeMotos.Mensageria;
 using AluguelDeMotos.Models;
 using AluguelDeMotos.Repositorio;
 using Microsoft.AspNetCore.Mvc;
@@ -9,9 +11,22 @@ namespace AluguelDeMotos.Controllers
     public class MotoController : Controller
     {
         private readonly IMotoRepositorio _motoRepositorio;
-        public MotoController(IMotoRepositorio motoRepositorio)
+        private readonly IRabbitMQService _rabbitMQService;
+        public MotoController(IMotoRepositorio motoRepositorio,
+                              IRabbitMQService rabbitMQService)
         {
             _motoRepositorio = motoRepositorio;
+            _rabbitMQService = rabbitMQService;
+
+            _motoRepositorio.MotoCadastrada += HandleMotoCadastradaEvent;
+        }
+
+        private void HandleMotoCadastradaEvent(object sender, MotoCadastradaEventArgs e)
+        {
+            if (e.Moto.Ano == 2024)
+            {
+                _rabbitMQService.PostMessage($"Nova moto 2024 cadastrada!");
+            }
         }
 
         [SomenteAdmin]

@@ -3,8 +3,8 @@ version: '3.8'
 services:
   app:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ./AluguelDeMotos
+      dockerfile: ./Dockerfile
     ports:
       - "5000:8080"
     environment:
@@ -12,7 +12,27 @@ services:
       ConnectionStrings__DefaultConnection: "Host=database;Port=5432;Database=postgres;Username=user;Password=password;"
     depends_on:
       - database
+      - rabbitmq
     restart: always
+
+  consumidor:
+    build:
+      context: ./Consumidor
+      dockerfile: ./Dockerfile
+    depends_on:
+      - database
+      - rabbitmq
+    command: ["dotnet", "ConsoleProject.dll"]
+
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: rabbitmq_container
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
 
   database:
     image: postgres:15

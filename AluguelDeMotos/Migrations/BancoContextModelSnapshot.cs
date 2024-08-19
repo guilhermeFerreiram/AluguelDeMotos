@@ -68,7 +68,7 @@ namespace AluguelDeMotos.Migrations
                     b.HasIndex("UsuarioId")
                         .IsUnique();
 
-                    b.ToTable("Locacoes");
+                    b.ToTable("Locacoes", (string)null);
                 });
 
             modelBuilder.Entity("AluguelDeMotos.Models.MotoModel", b =>
@@ -98,7 +98,7 @@ namespace AluguelDeMotos.Migrations
                     b.HasIndex("Placa")
                         .IsUnique();
 
-                    b.ToTable("Motos");
+                    b.ToTable("Motos", (string)null);
                 });
 
             modelBuilder.Entity("AluguelDeMotos.Models.Usuarios.UsuarioModel", b =>
@@ -137,7 +137,7 @@ namespace AluguelDeMotos.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Usuarios");
+                    b.ToTable("Usuarios", (string)null);
 
                     b.HasDiscriminator().HasValue("UsuarioModel");
 
