@@ -13,6 +13,7 @@
   <a href="#techs">:pushpin: Tecnologias</a> &bull;
   <a href="#executar">:open_file_folder: Como executar o aplicativo</a> &bull;
   <a href="#testar">:open_file_folder: Como testar o aplicativo</a> &bull;
+  <a href="#problemas">:open_file_folder: Problemas</a> &bull;
   <a href="#author">:bust_in_silhouette: Autor</a> &bull; 
   <a href="#license">:page_with_curl: Licença</a>
 </p>
@@ -74,6 +75,13 @@ docker-compose up
 - O usuário admin pode cadastrar uma nova moto.
   - Os dados obrigatórios da moto são Identificador, Ano, Modelo e Placa
   - A placa é um dado único e não pode se repetir.
+  - Quando a moto for cadastrada a aplicação deverá gerar um evento de moto cadastrada
+    - A notificação deverá ser publicada por mensageria.
+    - Um consumidor será notificado quando o ano da moto for "2024". (Verifique a notificação no mesmo terminal que iniciou o Docker)
+``` bash
+# A notificação aparecerá dessa forma no console
+consumidor-1        |  [x] Recebida: Nova moto 2024 cadastrada!
+```
 - O usuário admin pode consultar as motos existentes na plataforma e consegue filtrar pela placa, ano, modelo e situação de aluguel.
 - O usuário admin pode modificar uma moto alterando qualquer dado que foi cadastrado indevidamente
 - O usuário admin pode remover uma moto que foi cadastrada incorretamente, desde que não tenha registro de locação.
@@ -99,6 +107,14 @@ docker-compose up
     - Quando a data informada for superior a data prevista do término, será cobrado um valor adicional de R$50,00 por diária adicional.
     
 <br>
+
+<h2 id="testar" align="problemas">:open_file_folder: Problemas</h2>
+
+<p align="center">
+  Ao iniciar o conteiner do projeto 'Consumidor', algumas excessões são geradas sinalizando falhas de conexão com RabbitMQ. A solução imediata foi incluir um comando no arquivo <strong>docker-compose.yml</strong> para dar restart no projeto sempre que fechar.
+  Outro problema, também relacionado ao consumidor, é a visibilidade das mensagens de confirmação de recebimento. As mensagens são escritas no console onde você rodou o comando <strong>docker-compose up</strong>, junto com as mensagens do Entity Framework da aplicação web.
+</p>
+
 
 <h2 align="center" id="author">:bust_in_silhouette: Autor</h2>
 
