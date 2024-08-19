@@ -1,29 +1,6 @@
 version: '3.8'
 
 services:
-  app:
-    build:
-      context: ./AluguelDeMotos
-      dockerfile: ./Dockerfile
-    ports:
-      - "5000:8080"
-    environment:
-      ASPNETCORE_ENVIRONMENT: "Staging"
-      ConnectionStrings__DefaultConnection: "Host=database;Port=5432;Database=postgres;Username=user;Password=password;"
-    depends_on:
-      - database
-      - rabbitmq
-    restart: always
-
-  consumidor:
-    build:
-      context: ./Consumidor
-      dockerfile: ./Dockerfile
-    depends_on:
-      - database
-      - rabbitmq
-    command: ["dotnet", "ConsoleProject.dll"]
-
   rabbitmq:
     image: rabbitmq:3.13-management
     container_name: rabbitmq_container
@@ -44,6 +21,32 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+
+  consumidor:
+    build:
+      context: ./Consumidor
+      dockerfile: ./Dockerfile
+    depends_on:
+      - database
+      - rabbitmq
+    command: ["dotnet", "Consumidor.dll"]
+    restart: always
+    tty: true  # Mantém o terminal aberto
+    stdin_open: true  # Permite a entrada interativa
+
+  app:
+    build:
+      context: ./AluguelDeMotos
+      dockerfile: ./Dockerfile
+    ports:
+      - "5000:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Staging"
+      ConnectionStrings__DefaultConnection: "Host=database;Port=5432;Database=postgres;Username=user;Password=password;"
+    depends_on:
+      - database
+      - rabbitmq
+    restart: always
 
 volumes:
   postgres_data:

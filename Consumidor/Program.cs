@@ -1,16 +1,18 @@
-﻿using System.Text;
+﻿//A visibilidade das mensagens recebidas fica prejudicada por conta do Docker estar rodando varias aplicações ao mesmo tempo.
+
+using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-var factory = new ConnectionFactory { HostName = "localhost" };
+var factory = new ConnectionFactory { HostName = "rabbitmq_container" };
 using var connection = factory.CreateConnection();
 using var channel = connection.CreateModel();
 
 channel.QueueDeclare(queue: "aluguel_de_motos",
-                     durable: false,
-                     exclusive: false,
-                     autoDelete: false,
-                     arguments: null);
+             durable: false,
+             exclusive: false,
+             autoDelete: false,
+             arguments: null);
 
 while (true)
 {

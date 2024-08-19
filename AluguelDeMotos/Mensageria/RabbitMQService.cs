@@ -10,7 +10,7 @@ namespace AluguelDeMotos.Mensageria
 
         public RabbitMQService()
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            var factory = new ConnectionFactory() { HostName = "rabbitmq_container" };
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
             _channel.QueueDeclare(queue: "aluguel_de_motos",

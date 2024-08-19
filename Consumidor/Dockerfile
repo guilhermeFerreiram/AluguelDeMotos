@@ -8,7 +8,7 @@ WORKDIR /src
 
 # Copie o arquivo .csproj e restaure as dependências
 COPY ["Consumidor.csproj", "./"]
-RUN dotnet restore "./ConsoleProject.csproj"
+RUN dotnet restore "./Consumidor.csproj"
 
 # Copie todos os arquivos do projeto e compile
 COPY . .
